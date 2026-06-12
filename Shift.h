@@ -23,7 +23,7 @@ public:
 
     void setShiftLength(int hours) { shiftLength = hours; };
 
-    void printShift() const;
+    friend std::ostream& operator<<(std::ostream& os, const Shift& p);
 };
 
 #endif
