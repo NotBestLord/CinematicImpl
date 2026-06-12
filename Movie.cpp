@@ -1,6 +1,7 @@
 #include "Movie.h"
 #include <cstring>
 
+using namespace std;
 
 Movie::Movie(const char* title, const Date& premiereDate, int lengthMinutes, bool is3D) :
         premiereDate(premiereDate), lengthMinutes(lengthMinutes), is3D(is3D)
@@ -37,7 +38,7 @@ void Movie::setTitle(const char* newTitle)
     this->title = strdup(newTitle);
 }
 
-std::ostream& operator<<(std::ostream& os, const Movie& m)
+ostream& operator<<(ostream& os, const Movie& m)
 {
     os << "[" << m.title << ", " << m.premiereDate << ", " << m.lengthMinutes << " minutes";
     if (m.is3D)

@@ -1,6 +1,8 @@
 #include "Person.h"
 #include <cstring>
 
+using namespace std;
+
 Person::Person(const char* name, int id) : id(id)
 {
     this->name = strdup(name);
@@ -31,4 +33,12 @@ void Person::setName(const char* newName)
 {
     delete []this->name;
     this->name = strdup(newName);
+}
+
+ostream& operator<<(ostream& os, const Person& p)
+{
+    os << "[" << p.name << ", " << p.id;
+    p.toOs(os);
+    os << "]";
+    return os;
 }

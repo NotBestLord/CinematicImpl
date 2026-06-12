@@ -16,7 +16,7 @@ public:
     const char* getPublicationName() const { return publicationName; };
     void setPublicationName(const char* name);
 
-    void printDetails() const override;
+    void toOs(std::ostream& os) const override;
 };
 
 #endif
