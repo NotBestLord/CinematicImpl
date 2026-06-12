@@ -13,9 +13,7 @@ private:
 public:
     VIPTicket(const Movie& movie, bool is3D, bool includesMeal) :
             Ticket(movie, is3D), includesMeal(includesMeal) {};
-    VIPTicket(const VIPTicket& other);
     VIPTicket& operator=(const VIPTicket& other) = delete;
-    ~VIPTicket() override;
 
     bool getIncludesMeal() const { return includesMeal; };
     void setIncludesMeal(bool m) { includesMeal = m; };

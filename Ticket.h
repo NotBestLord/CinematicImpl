@@ -13,9 +13,7 @@ private:
 
 public:
     Ticket(const Movie& movie, bool is3D) : movieRef(movie), is3D(is3D) {};
-    Ticket(const Ticket& other);
     Ticket& operator=(const Ticket& other) = delete;
-    virtual ~Ticket();
 
     const Movie& getMovie() const { return movieRef; };
     bool getIs3D() const { return is3D; };
