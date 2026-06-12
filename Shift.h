@@ -11,7 +11,8 @@ private:
     Date shiftDate;
 
 public:
-    Shift(const Employee& worker, int shiftLength, const Date& shiftDate);
+    Shift(const Employee& worker, int shiftLength, const Date& shiftDate) :
+            workerRef(worker), shiftLength(shiftLength), shiftDate(shiftDate) {};
     Shift(const Shift& other);
     Shift& operator=(const Shift& other) = delete;
     ~Shift();

@@ -12,7 +12,7 @@ private:
     static const double THREE_D_SURCHARGE;
 
 public:
-    Ticket(const Movie& movie, bool is3D);
+    Ticket(const Movie& movie, bool is3D) : movieRef(movie), is3D(is3D) {};
     Ticket(const Ticket& other);
     Ticket& operator=(const Ticket& other) = delete;
     virtual ~Ticket();
