@@ -26,5 +26,5 @@ Reviewer::~Reviewer()
 
 void Reviewer::toOs(std::ostream& os) const
 {
-    os << ", " << this->publicationName << ", " << this->getVisitCount();
+    os << ", " << this->publicationName << ", " << this->getVisitCount() << " | Reviewer";
 }
