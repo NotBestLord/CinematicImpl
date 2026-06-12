@@ -17,7 +17,7 @@ public:
     int getWaitersCount() const { return waitersCount; };
     void setWaitersCount(int c) { waitersCount = c; };
 
-    void printHall() const override;
+    void toOs(std::ostream& os) const override;
 };
 
 #endif
