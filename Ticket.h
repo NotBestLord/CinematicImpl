@@ -17,10 +17,10 @@ public:
     Ticket& operator=(const Ticket& other) = delete;
     virtual ~Ticket();
 
-    const Movie& getMovie() const;
-    bool getIs3D() const;
+    const Movie& getMovie() const { return movieRef; };
+    bool getIs3D() const { return is3D; };
 
-    void setIs3D(bool flag);
+    void setIs3D(bool flag) { is3D = flag; };
 
     virtual double calcFinalPrice() const;
 

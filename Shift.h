@@ -16,11 +16,11 @@ public:
     Shift& operator=(const Shift& other) = delete;
     ~Shift();
 
-    const Employee& getWorker() const;
-    int getShiftLength() const;
-    const Date& getShiftDate() const;
+    const Employee& getWorker() const { return workerRef; };
+    int getShiftLength() const { return shiftLength; };
+    const Date& getShiftDate() const { return shiftDate; };
 
-    void setShiftLength(int hours);
+    void setShiftLength(int hours) { shiftLength = hours; };
 
     void printShift() const;
 };

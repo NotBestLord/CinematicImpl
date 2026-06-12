@@ -13,7 +13,7 @@ public:
     Reviewer& operator=(const Reviewer& other);
     ~Reviewer() override;
 
-    const char* getPublicationName() const;
+    const char* getPublicationName() const { return publicationName; };
     void setPublicationName(const char* name);
 
     void printDetails() const override;

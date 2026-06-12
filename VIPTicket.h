@@ -16,8 +16,8 @@ public:
     VIPTicket& operator=(const VIPTicket& other) = delete;
     ~VIPTicket() override;
 
-    bool getIncludesMeal() const;
-    void setIncludesMeal(bool m);
+    bool getIncludesMeal() const { return includesMeal; };
+    void setIncludesMeal(bool m) { includesMeal = m; };
 
     double calcFinalPrice() const override;
 };

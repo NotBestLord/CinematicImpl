@@ -13,8 +13,8 @@ public:
     VIPHall& operator=(const VIPHall& other) = delete;
     ~VIPHall() override;
 
-    int getWaitersCount() const;
-    void setWaitersCount(int c);
+    int getWaitersCount() const { return waitersCount; };
+    void setWaitersCount(int c) { waitersCount = c; };
 
     void printHall() const override;
 };

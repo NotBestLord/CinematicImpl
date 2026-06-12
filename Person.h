@@ -14,8 +14,8 @@ public:
     Person& operator=(const Person& other);
     virtual ~Person();
 
-    const char* getName() const;
-    int getId() const;
+    const char* getName() const { return name; };
+    int getId() const { return id; };
 
     void setName(const char* newName);
 

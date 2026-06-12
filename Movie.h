@@ -17,14 +17,14 @@ public:
     Movie& operator=(const Movie& other);
     ~Movie();
 
-    const char* getTitle() const;
-    const Date& getPremiereDate() const;
-    int getLengthMinutes() const;
-    bool getIs3D() const;
+    const char* getTitle() const { return title; };
+    const Date& getPremiereDate() const { return premiereDate; };
+    int getLengthMinutes() const { return lengthMinutes; };
+    bool getIs3D() const { return is3D; };
 
     void setTitle(const char* newTitle);
-    void setLengthMinutes(int minutes);
-    void setIs3D(bool flag);
+    void setLengthMinutes(int minutes) { lengthMinutes = minutes; };
+    void setIs3D(bool flag) { is3D = flag; };
 
     friend std::ostream& operator<<(std::ostream& os, const Movie& m);
 };
