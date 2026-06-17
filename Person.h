@@ -2,14 +2,16 @@
 #define PERSON_H
 
 #include <iostream>
+#include "Date.h"
 
 class Person {
 private:
     char* name;
     int id;
+    Date birthDate;
 
 public:
-    Person(const char* name, int id);
+    Person(const char* name, int id, const Date& birthDate);
     Person(const Person& other);
     Person& operator=(const Person& other);
     virtual ~Person();

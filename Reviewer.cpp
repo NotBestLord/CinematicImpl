@@ -1,8 +1,8 @@
 #include "Reviewer.h"
 #include <cstring>
 
-Reviewer::Reviewer(const char* name, int id, const char* publicationName, int visitCount = 0) :
-    Guest(name, id, visitCount)
+Reviewer::Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount = 0) :
+    Guest(name, id, birthDate, visitCount)
 {
     this->publicationName = strdup(publicationName);
 }
