@@ -11,15 +11,15 @@ private:
     int clubPoints;
 
 public:
-	Customer(const char* name, int id, int clubPoints = 0, int visitCount = 0) : Guest(name, id, visitCount), clubPoints(clubPoints) {}
-	Customer(const Customer& other) : Guest(other), clubPoints(other.clubPoints) {}
-    Customer& operator=(const Customer& other);
+	Customer(const char* name, int id, const Date& birthDate, int clubPoints = 0, int visitCount = 0);
+	Customer(const Customer& other);
+    const Customer& operator=(const Customer& other);
 
 	int getClubPoints() const { return clubPoints; }
     void setClubPoints(int p) { clubPoints = p; }
 	void addClubPoints(int p) { clubPoints += p; }
 
-	virtual void toOs(ostream& os) const override { os << "Club Points: " << clubPoints; }
+	virtual void toOs(ostream& os) const override;
 };
 
 #endif

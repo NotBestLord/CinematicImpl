@@ -9,9 +9,8 @@ public:
     Hall3DVIP(int hallNumber, Movie& currentMovie, int waitersCount, int glassesCount);
     Hall3DVIP(const Hall3DVIP& other);
     Hall3DVIP& operator=(const Hall3DVIP& other) = delete;
-    ~Hall3DVIP() override;
 
-    void printHall() const override;
+	void toOs(ostream& os) const override;
 };
 
 #endif

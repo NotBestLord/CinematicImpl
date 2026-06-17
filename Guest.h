@@ -7,7 +7,7 @@ class Ticket;
 
 class Guest : public Person {
 public:
-    static const int INITIAL_TICKETS_CAPACITY = 4;
+    static constexpr int INITIAL_TICKETS_CAPACITY = 4;
 
 private:
     int visitCount;
@@ -18,21 +18,21 @@ private:
     void resizeTickets();
 
 public:
-    Guest(const char* name, int id, int visitCount = 0);
+    Guest(const char* name, int id, const Date& birthDate, int visitCount = 0);
     Guest(const Guest& other);
-    Guest& operator=(const Guest& other);
-    virtual ~Guest();
+    virtual ~Guest() override = 0;
+    const Guest& operator=(const Guest& other);
 
-    int getVisitCount() const;
-    int getNumTickets() const;
+    int getVisitCount() const { return visitCount; }
+    int getNumTickets() const { return numTickets; }
     const Ticket* getTicket(int index) const;
 
-    void setVisitCount(int v);
-    void incrementVisitCount();
+    void setVisitCount(int v) { visitCount = v; }
+    void incrementVisitCount() { visitCount++; }
 
     void addTicket(Ticket* t);
 
-    void printDetails() const override;
+	void toOs(std::ostream& os) const override;
 };
 
 #endif

@@ -9,7 +9,7 @@
 
 class Cinema {
 public:
-    static const int INITIAL_CAPACITY = 10;
+    static constexpr int INITIAL_CAPACITY = 10;
 
 private:
     Employee** employees;
@@ -60,16 +60,16 @@ public:
     Movie* getMovieByIndex(int i);
     const Shift* getShiftByIndex(int i) const;
 
-    Guest* findGuestById(int id);
-    Employee* findEmployeeById(int id);
+    Guest* findGuestById(int id) const;
+    Employee* findEmployeeById(int id) const;
 
-    Cinema& operator+=(Employee* e);
-    Cinema& operator+=(Guest* g);
-    Cinema& operator+=(Hall* h);
-    Cinema& operator+=(Movie* m);
-    Cinema& operator+=(Shift* s);
+    const Cinema& operator+=(Employee* e);
+	const Cinema& operator+=(Guest* g);
+	const Cinema& operator+=(Hall* h);
+	const Cinema& operator+=(Movie* m);
+	const Cinema& operator+=(Shift* s);
 
-    Cinema& operator-=(int guestId);
+	const Cinema& operator-=(int guestId);
 
     void printAllGuests() const;
     void printAllEmployees() const;

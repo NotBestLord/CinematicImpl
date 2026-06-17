@@ -11,12 +11,11 @@ public:
     Hall3D(int hallNumber, Movie& currentMovie, int glassesCount);
     Hall3D(const Hall3D& other);
     Hall3D& operator=(const Hall3D& other) = delete;
-    ~Hall3D() override;
 
-    int getGlassesCount() const;
-    void setGlassesCount(int c);
+    int getGlassesCount() const { return glassesCount; }
+    void setGlassesCount(int c) { glassesCount = c; }
 
-    void printHall() const override;
+	void toOs(ostream& os) const override;
 };
 
 #endif
