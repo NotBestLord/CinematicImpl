@@ -24,11 +24,11 @@ private:
     int numHalls;
     int hallsCapacity;
 
-    Movie** movies;
+    const Movie** movies;
     int numMovies;
     int moviesCapacity;
 
-    Shift** shifts;
+    const Shift** shifts;
     int numShifts;
     int shiftsCapacity;
 
@@ -41,14 +41,14 @@ private:
 public:
     Cinema();
     Cinema(const Cinema& other);
-    Cinema& operator=(const Cinema& other);
+    const Cinema& operator=(const Cinema& other);
     ~Cinema();
-
-    int getNumEmployees() const;
-    int getNumGuests() const;
-    int getNumHalls() const;
-    int getNumMovies() const;
-    int getNumShifts() const;
+    
+    int getNumEmployees() const { return numEmployees; }
+    int getNumGuests() const { return numGuests; }
+    int getNumHalls() const { return numHalls; }
+    int getNumMovies() const { return numMovies; }
+    int getNumShifts() const { return numShifts; }
 
     const Employee* getEmployeeByIndex(int i) const;
     Employee* getEmployeeByIndex(int i);
