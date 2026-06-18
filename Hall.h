@@ -13,10 +13,10 @@ public:
 private:
     int hallNumber;
     bool seats[NUM_SEATS];
-    Movie& currentMovie;
+    const Movie& currentMovie;
 
 public:
-    Hall(int hallNumber, Movie& currentMovie);
+    Hall(int hallNumber, const Movie& currentMovie);
     Hall(const Hall& other);
     Hall& operator=(const Hall& other) = delete;
 
