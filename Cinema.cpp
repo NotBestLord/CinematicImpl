@@ -260,7 +260,7 @@ void Cinema::printAllEmployees() const
 {
 	for (int i = 0; i < numEmployees; i++)
 	{
-		cout << employees[i] << endl;
+		cout << i << ". " << employees[i] << endl;
 	}
 }
 
@@ -268,7 +268,7 @@ void Cinema::printAllGuests() const
 {
 	for (int i = 0; i < numGuests; i++)
 	{
-		cout << *guests[i] << endl;
+		cout << i << ". " << *guests[i] << endl;
 	}
 }
 
@@ -276,7 +276,7 @@ void Cinema::printAllHalls() const
 {
 	for (int i = 0; i < numHalls; i++)
 	{
-		cout << *halls[i] << endl;
+		cout << i << ". " << *halls[i] << endl;
 	}
 }
 
@@ -284,7 +284,7 @@ void Cinema::printAllMovies() const
 {
 	for (int i = 0; i < numMovies; i++)
 	{
-		cout << *movies[i] << endl;
+		cout << i << ". " << *movies[i]->getTitle() << endl;
 	}
 }
 
@@ -292,7 +292,7 @@ void Cinema::printAllShifts() const
 {
 	for (int i = 0; i < numShifts; i++)
 	{
-		cout << *shifts[i] << endl;
+		cout << i << ". " << *shifts[i] << endl;
 	}
 }
 
