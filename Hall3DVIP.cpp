@@ -1,6 +1,6 @@
 #include "Hall3DVIP.h"
 
-Hall3DVIP::Hall3DVIP(int hallNumber, Movie& currentMovie, int waitersCount, int glassesCount) :
+Hall3DVIP::Hall3DVIP(int hallNumber, const Movie& currentMovie, int waitersCount, int glassesCount) :
 	Hall(hallNumber, currentMovie),
 	VIPHall(hallNumber, currentMovie, waitersCount),
 	Hall3D(hallNumber, currentMovie, glassesCount) {}

@@ -8,7 +8,7 @@ private:
     int waitersCount;
 
 public:
-    VIPHall(int hallNumber, Movie& currentMovie, int waitersCount) : 
+    VIPHall(int hallNumber, const Movie& currentMovie, int waitersCount) : 
             Hall(hallNumber, currentMovie), waitersCount(waitersCount) {};
     VIPHall& operator=(const VIPHall& other) = delete;
 

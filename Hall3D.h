@@ -8,7 +8,7 @@ private:
     int glassesCount;
 
 public:
-    Hall3D(int hallNumber, Movie& currentMovie, int glassesCount);
+    Hall3D(int hallNumber, const Movie& currentMovie, int glassesCount);
     Hall3D(const Hall3D& other);
     Hall3D& operator=(const Hall3D& other) = delete;
 

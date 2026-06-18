@@ -88,7 +88,7 @@ static void addHall(Cinema& cinema) {
 
     cinema.printAllMovies();
     int movieIdx = readIntInRange("Choose movie index for this hall: ", 0, cinema.getNumMovies() - 1);
-    Movie* movie = cinema.getMovieByIndex(movieIdx);
+    const Movie* movie = cinema.getMovieByIndex(movieIdx);
 
     int hallNumber = readInt("Enter hall number: ");
 
