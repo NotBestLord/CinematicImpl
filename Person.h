@@ -21,7 +21,7 @@ public:
 
     void setName(const char* newName);
 
-    virtual void toOs(std::ostream& os) const;
+    virtual void toOs(std::ostream& os) const = 0;
 
     friend std::ostream& operator<<(std::ostream& os, const Person& p);
 };
