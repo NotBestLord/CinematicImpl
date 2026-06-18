@@ -7,8 +7,8 @@ class VIPTicket : public Ticket {
 private:
     bool includesMeal;
 
-    static const double VIP_SURCHARGE;
-    static const double MEAL_PRICE;
+    static constexpr double VIP_SURCHARGE = 20;
+    static constexpr double MEAL_PRICE = 30;
 
 public:
     VIPTicket(const Movie& movie, bool is3D, bool includesMeal) :

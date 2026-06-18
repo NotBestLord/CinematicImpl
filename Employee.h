@@ -9,7 +9,7 @@ class Employee : public Person {
 private:
     double salary;
 
-    static const double PROMOTION_PERCENTAGE;
+    static constexpr double PROMOTION_PERCENTAGE = .1;
 
 public:
     Employee(const char* name, int id, const Date& birthDate, double salary);
