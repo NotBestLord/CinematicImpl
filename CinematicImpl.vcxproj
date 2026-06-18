@@ -128,8 +128,13 @@
     <ClCompile Include="Hall3D.cpp" />
     <ClCompile Include="Hall3DVIP.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Reviewer.cpp" />
+    <ClCompile Include="Shift.cpp" />
+    <ClCompile Include="Ticket.cpp" />
+    <ClCompile Include="VIPHall.cpp" />
+    <ClCompile Include="VIPTicket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cinema.h" />
