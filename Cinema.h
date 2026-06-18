@@ -9,7 +9,7 @@
 
 class Cinema {
 public:
-    static const int INITIAL_CAPACITY = 10;
+    static constexpr int INITIAL_CAPACITY = 10;
 
 private:
     Employee** employees;
@@ -24,11 +24,11 @@ private:
     int numHalls;
     int hallsCapacity;
 
-    Movie** movies;
+    const Movie** movies;
     int numMovies;
     int moviesCapacity;
 
-    Shift** shifts;
+    const Shift** shifts;
     int numShifts;
     int shiftsCapacity;
 
@@ -41,14 +41,14 @@ private:
 public:
     Cinema();
     Cinema(const Cinema& other);
-    Cinema& operator=(const Cinema& other);
+    const Cinema& operator=(const Cinema& other);
     ~Cinema();
-
-    int getNumEmployees() const;
-    int getNumGuests() const;
-    int getNumHalls() const;
-    int getNumMovies() const;
-    int getNumShifts() const;
+    
+    int getNumEmployees() const { return numEmployees; }
+    int getNumGuests() const { return numGuests; }
+    int getNumHalls() const { return numHalls; }
+    int getNumMovies() const { return numMovies; }
+    int getNumShifts() const { return numShifts; }
 
     const Employee* getEmployeeByIndex(int i) const;
     Employee* getEmployeeByIndex(int i);
@@ -60,16 +60,16 @@ public:
     Movie* getMovieByIndex(int i);
     const Shift* getShiftByIndex(int i) const;
 
-    Guest* findGuestById(int id);
-    Employee* findEmployeeById(int id);
+    Guest* findGuestById(int id) const;
+    Employee* findEmployeeById(int id) const;
 
-    Cinema& operator+=(Employee* e);
-    Cinema& operator+=(Guest* g);
-    Cinema& operator+=(Hall* h);
-    Cinema& operator+=(Movie* m);
-    Cinema& operator+=(Shift* s);
+    const Cinema& operator+=(Employee* e);
+	const Cinema& operator+=(Guest* g);
+	const Cinema& operator+=(Hall* h);
+	const Cinema& operator+=(Movie* m);
+	const Cinema& operator+=(Shift* s);
 
-    Cinema& operator-=(int guestId);
+	const Cinema& operator-=(int guestId);
 
     void printAllGuests() const;
     void printAllEmployees() const;

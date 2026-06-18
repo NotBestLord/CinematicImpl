@@ -2,10 +2,13 @@
 #define HALL_H
 
 #include "Movie.h"
+#include <iostream>
+
+using namespace std;
 
 class Hall {
 public:
-    static const int NUM_SEATS = 100;
+    static constexpr int NUM_SEATS = 100;
 
 private:
     int hallNumber;
@@ -16,21 +19,22 @@ public:
     Hall(int hallNumber, Movie& currentMovie);
     Hall(const Hall& other);
     Hall& operator=(const Hall& other) = delete;
-    virtual ~Hall();
 
-    int getHallNumber() const;
-    const Movie& getCurrentMovie() const;
-    bool isSeatTaken(int seatIndex) const;
+    int getHallNumber() const { return hallNumber; }
+    const Movie& getCurrentMovie() const { return currentMovie; }
+    bool isSeatTaken(int seatIndex) const { return seats[seatIndex]; }
     int countTakenSeats() const;
 
-    void setHallNumber(int num);
+    void setHallNumber(int num) { hallNumber = num; }
 
     void takeSeat(int seatIndex);
     void freeSeat(int seatIndex);
 
     bool operator!() const;
 
-    virtual void printHall() const;
+	virtual void toOs(ostream& os) const {}
+
+	friend ostream& operator<<(ostream& os, const Hall& h);
 };
 
 #endif

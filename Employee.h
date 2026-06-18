@@ -2,11 +2,11 @@
 #define EMPLOYEE_H
 
 #include "Person.h"
-#include "Date.h"
+
+class Date;
 
 class Employee : public Person {
 private:
-    Date birthDate;
     double salary;
 
     static const double PROMOTION_PERCENTAGE;
@@ -14,17 +14,15 @@ private:
 public:
     Employee(const char* name, int id, const Date& birthDate, double salary);
     Employee(const Employee& other);
-    Employee& operator=(const Employee& other);
-    ~Employee() override;
+    const Employee& operator=(const Employee& other);
 
-    const Date& getBirthDate() const;
-    double getSalary() const;
+    double getSalary() const { return salary; }
+    void setSalary(double newSalary) { salary = newSalary; }
 
-    void setSalary(double newSalary);
+	const Employee& operator++();
+    Employee operator++(int);
 
-    Employee& operator++();
-
-    void printDetails() const override;
+	void toOs(std::ostream& os) const override;
 };
 
 #endif

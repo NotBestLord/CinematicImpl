@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 class Date {
 private:
     int day;
@@ -14,17 +16,31 @@ private:
 public:
     Date(int day = 1, int month = 1, int year = 2000);
 
-    int getDay() const;
-    int getMonth() const;
-    int getYear() const;
+    int getDay() const { return day; }
+	int getMonth() const { return month; }
+	int getYear() const { return year; }
 
-    void setDay(int d);
-    void setMonth(int m);
-    void setYear(int y);
+    void setDay(int d)
+    {
+        if (isValidDate(d, month, year)) day = d;
+        else cout << "Invalid day provided. Day not updated." << endl;
+	}
+
+    void setMonth(int m)
+    {
+        if (isValidDate(day, m, year)) month = m;
+        else cout << "Invalid month provided. Month not updated." << endl;
+    }
+
+    void setYear(int y)
+    {
+        if (isValidDate(day, month, y)) year = y;
+        else cout << "Invalid year provided. Year not updated." << endl;
+    }
 
     bool operator==(const Date& other) const;
 
-    friend std::ostream& operator<<(std::ostream& os, const Date& d);
+    friend void operator<<(ostream& os, const Date& d);
 };
 
 #endif
