@@ -50,8 +50,11 @@ public:
     int getNumMovies() const { return numMovies; }
     int getNumShifts() const { return numShifts; }
 
+    const Employee* getEmployeeByIndex(int i) const;
     Employee* getEmployeeByIndex(int i);
+    const Guest* getGuestByIndex(int i) const;
     Guest* getGuestByIndex(int i);
+    const Hall* getHallByIndex(int i) const;
     Hall* getHallByIndex(int i);
     const Movie* getMovieByIndex(int i) const;
     const Shift* getShiftByIndex(int i) const;

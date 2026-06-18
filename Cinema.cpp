@@ -122,6 +122,13 @@ Cinema::~Cinema()
 	delete[] shifts;
 }
 
+const Employee* Cinema::getEmployeeByIndex(int i) const
+{
+	if (i >= 0 && i <= employeesCapacity) return employees[i];
+	cout << "Index should be between 0 and " << employeesCapacity << ". Operation cancelled." << endl;
+	return nullptr;
+}
+
 Employee* Cinema::getEmployeeByIndex(int i)
 {
 	if (i >= 0 && i <= employeesCapacity) return employees[i];
@@ -129,10 +136,24 @@ Employee* Cinema::getEmployeeByIndex(int i)
 	return nullptr;
 }
 
+const Guest* Cinema::getGuestByIndex(int i) const
+{
+	if (i >= 0 && i <= guestsCapacity) return guests[i];
+	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
+	return nullptr;
+}
+
 Guest* Cinema::getGuestByIndex(int i)
 {
 	if (i >= 0 && i <= guestsCapacity) return guests[i];
 	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
+	return nullptr;
+}
+
+const Hall* Cinema::getHallByIndex(int i) const
+{
+	if (i >= 0 && i <= hallsCapacity) return halls[i];
+	cout << "Index should be between 0 and " << hallsCapacity << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
