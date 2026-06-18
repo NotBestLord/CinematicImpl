@@ -1,7 +1,7 @@
 #include "Customer.h"
 #include "Date.h"
 
-Customer::Customer(const char* name, int id, const Date& birthDate, int clubPoints, int visitCount) : Guest(name, id, visitCount), clubPoints(clubPoints) {}
+Customer::Customer(const char* name, int id, const Date& birthDate, int clubPoints, int visitCount) : Guest(name, id, birthDate, visitCount), clubPoints(clubPoints) {}
 
 Customer::Customer(const Customer& other) : Guest(other), clubPoints(other.clubPoints) {}
 

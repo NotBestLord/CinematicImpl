@@ -11,7 +11,7 @@ Guest::Guest(const char* name, int id, const Date& birthDate, int visitCount) : 
 	tickets = new Ticket*[ticketsCapacity];
 }
 
-Guest::Guest(const Guest& other)
+Guest::Guest(const Guest& other) : Person(other)
 {
 	*this = other;
 }
@@ -75,9 +75,5 @@ void Guest::resizeTickets()
 void Guest::toOs(std::ostream& os) const
 {
 	os << ", " << "Visit Count: " << visitCount;
-	os << "\n====================\n" << numTickets << " owned tickets" << (numTickets > 0 ? ":\n" : ", ");
-	for (int i = 0; i < numTickets; i++)
-	{
-		os << *tickets[i] << (i != numTickets - 1 ? "\n" : "\n====================\n");
-	}
+	os << numTickets << " owned tickets";
 }
