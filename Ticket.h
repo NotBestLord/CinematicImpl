@@ -8,17 +8,17 @@ private:
     const Movie& movieRef;
     bool is3D;
 
-    static const double BASE_PRICE;
-    static const double THREE_D_SURCHARGE;
+    static constexpr double BASE_PRICE = 42;
+    static constexpr double THREE_D_SURCHARGE = 20;
 
 public:
-    Ticket(const Movie& movie, bool is3D) : movieRef(movie), is3D(is3D) {};
+    Ticket(const Movie& movie, bool is3D) : movieRef(movie), is3D(is3D) {}
     Ticket& operator=(const Ticket& other) = delete;
 
-    const Movie& getMovie() const { return movieRef; };
-    bool getIs3D() const { return is3D; };
+    const Movie& getMovie() const { return movieRef; }
+    bool getIs3D() const { return is3D; }
 
-    void setIs3D(bool flag) { is3D = flag; };
+    void setIs3D(bool flag) { is3D = flag; }
 
     virtual double calcFinalPrice() const;
 

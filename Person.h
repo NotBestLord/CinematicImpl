@@ -13,7 +13,7 @@ private:
 public:
     Person(const char* name, int id, const Date& birthDate);
     Person(const Person& other);
-    Person& operator=(const Person& other);
+    const Person& operator=(const Person& other);
     virtual ~Person();
 
     const char* getName() const { return name; };

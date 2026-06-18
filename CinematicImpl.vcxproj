@@ -128,6 +128,8 @@
     <ClCompile Include="Hall3D.cpp" />
     <ClCompile Include="Hall3DVIP.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Reviewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cinema.h" />

@@ -1,7 +1,7 @@
 #include "Reviewer.h"
 #include <cstring>
 
-Reviewer::Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount = 0) :
+Reviewer::Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount) :
     Guest(name, id, birthDate, visitCount)
 {
     this->publicationName = strdup(publicationName);
@@ -12,7 +12,7 @@ Reviewer::Reviewer(const Reviewer& other) : Guest(other), publicationName(nullpt
     *this = other;
 }
 
-Reviewer& Reviewer::operator=(const Reviewer& other)
+const Reviewer& Reviewer::operator=(const Reviewer& other)
 {
     if (this != &other)
     {

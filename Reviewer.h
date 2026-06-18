@@ -10,7 +10,7 @@ private:
 public:
     Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount = 0);
     Reviewer(const Reviewer& other);
-    Reviewer& operator=(const Reviewer& other);
+    const Reviewer& operator=(const Reviewer& other);
     ~Reviewer() override;
 
     const char* getPublicationName() const { return publicationName; };

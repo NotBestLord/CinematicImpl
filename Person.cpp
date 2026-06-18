@@ -13,7 +13,7 @@ Person::Person(const Person& other) : name(nullptr)
     *this = other;
 }
 
-Person& Person::operator=(const Person& other)
+const Person& Person::operator=(const Person& other)
 {
     if (this != &other)
     {
