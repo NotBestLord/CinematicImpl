@@ -181,15 +181,16 @@ static void addGuest(Cinema& cinema) {
     char name[MAX_INPUT_LEN];
     readLine("Guest name: ", name, MAX_INPUT_LEN);
     int id = readInt("ID number: ");
+    Date date = readDate("birth date");
 
     Guest* guest = nullptr;
     if (type == 1) {
         int points = readIntInRange("Initial club points: ", 0, 100000);
-        guest = new Customer(name, id, points);
+        guest = new Customer(name, id, date, points);
     } else {
         char pub[MAX_INPUT_LEN];
         readLine("Publication name: ", pub, MAX_INPUT_LEN);
-        guest = new Reviewer(name, id, pub);
+        guest = new Reviewer(name, id, date, pub);
     }
 
     try {
