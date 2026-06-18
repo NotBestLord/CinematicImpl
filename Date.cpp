@@ -28,9 +28,10 @@ bool Date::operator==(const Date& other) const
 }
 
 
-void operator<<(ostream& os, const Date& d)
+ostream& operator<<(ostream& os, const Date& d)
 {
 	os << (d.day < 10 ? "0" : "") << d.day << "/"
 		<< (d.month < 10 ? "0" : "") << d.month << "/"
 		<< d.year;
+	return os;
 }
