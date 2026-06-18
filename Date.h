@@ -40,7 +40,7 @@ public:
 
     bool operator==(const Date& other) const;
 
-    friend void operator<<(ostream& os, const Date& d);
+    friend ostream& operator<<(ostream& os, const Date& d);
 };
 
 #endif
