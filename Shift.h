@@ -11,10 +11,9 @@ private:
     Date shiftDate;
 
 public:
-    Shift(const Employee& worker, int shiftLength, const Date& shiftDate);
-    Shift(const Shift& other);
+    Shift(const Employee& worker, int shiftLength, const Date& shiftDate) :
+            workerRef(worker), shiftLength(shiftLength), shiftDate(shiftDate) {};
     Shift& operator=(const Shift& other) = delete;
-    ~Shift();
 
     const Employee& getWorker() const { return workerRef; };
     int getShiftLength() const { return shiftLength; };
@@ -22,7 +21,7 @@ public:
 
     void setShiftLength(int hours) { shiftLength = hours; };
 
-    void printShift() const;
+    friend std::ostream& operator<<(std::ostream& os, const Shift& p);
 };
 
 #endif

@@ -8,15 +8,14 @@ private:
     int waitersCount;
 
 public:
-    VIPHall(int hallNumber, Movie& currentMovie, int waitersCount);
-    VIPHall(const VIPHall& other);
+    VIPHall(int hallNumber, Movie& currentMovie, int waitersCount) : 
+            Hall(hallNumber, currentMovie), waitersCount(waitersCount) {};
     VIPHall& operator=(const VIPHall& other) = delete;
-    ~VIPHall() override;
 
     int getWaitersCount() const { return waitersCount; };
     void setWaitersCount(int c) { waitersCount = c; };
 
-    void printHall() const override;
+    void toOs(std::ostream& os) const override;
 };
 
 #endif

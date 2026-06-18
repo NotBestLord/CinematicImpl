@@ -8,7 +8,7 @@ private:
     char* publicationName;
 
 public:
-    Reviewer(const char* name, int id, const char* publicationName, int visitCount = 0);
+    Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount = 0);
     Reviewer(const Reviewer& other);
     Reviewer& operator=(const Reviewer& other);
     ~Reviewer() override;
@@ -16,7 +16,7 @@ public:
     const char* getPublicationName() const { return publicationName; };
     void setPublicationName(const char* name);
 
-    void printDetails() const override;
+    void toOs(std::ostream& os) const override;
 };
 
 #endif

@@ -11,10 +11,9 @@ private:
     static const double MEAL_PRICE;
 
 public:
-    VIPTicket(const Movie& movie, bool is3D, bool includesMeal);
-    VIPTicket(const VIPTicket& other);
+    VIPTicket(const Movie& movie, bool is3D, bool includesMeal) :
+            Ticket(movie, is3D), includesMeal(includesMeal) {};
     VIPTicket& operator=(const VIPTicket& other) = delete;
-    ~VIPTicket() override;
 
     bool getIncludesMeal() const { return includesMeal; };
     void setIncludesMeal(bool m) { includesMeal = m; };

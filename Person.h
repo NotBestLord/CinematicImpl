@@ -2,14 +2,16 @@
 #define PERSON_H
 
 #include <iostream>
+#include "Date.h"
 
 class Person {
 private:
     char* name;
     int id;
+    Date birthDate;
 
 public:
-    Person(const char* name, int id);
+    Person(const char* name, int id, const Date& birthDate);
     Person(const Person& other);
     Person& operator=(const Person& other);
     virtual ~Person();
@@ -19,7 +21,8 @@ public:
 
     void setName(const char* newName);
 
-    virtual void printDetails() const = 0;
-};
+    virtual void toOs(std::ostream& os) const;
 
+    friend std::ostream& operator<<(std::ostream& os, const Person& p);
+};
 #endif
