@@ -13,6 +13,14 @@ Movie::Movie(const Movie& other) : title(nullptr)
 {
     *this = other;
 }
+Movie::Movie(Movie&& other)
+{
+    this->title = other.title;
+    other.title = nullptr;
+    this->premiereDate = other.premiereDate;
+    this->lengthMinutes = other.lengthMinutes;
+    this->is3D = other.is3D;
+}
 
 Movie& Movie::operator=(const Movie& other)
 {
