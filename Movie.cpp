@@ -13,6 +13,7 @@ Movie::Movie(const Movie& other) : title(nullptr)
 {
     *this = other;
 }
+
 Movie::Movie(Movie&& other)
 {
     this->title = other.title;
