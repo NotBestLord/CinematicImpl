@@ -42,6 +42,18 @@ public:
         while (addTo.hasNext()) addTo = addTo.getNext();
         addTo.setNext(new LinkedList(val));
     }
+    
+    const T& operator[](int index) const {
+        assert(index >= 0 && "Index out of bounds!");
+        LinkedList<T> node = *this;
+        while(index > 0 && node != nullptr)
+        {
+            node = node.getNext();
+            index--;
+        }
+        if (node == nullptr) return T();
+        return node.getVal();
+    }
 };
 
 #endif
