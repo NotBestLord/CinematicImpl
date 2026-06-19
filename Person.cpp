@@ -8,21 +8,10 @@ Person::Person(const char* name, int id, const Date& birthDate) : id(id), birthD
     this->name = strdup(name);
 }
 
-Person::Person(const Person& other) : name(nullptr)
+Person::Person(Person&& other) : id(other.id), birthDate(std::move(other.birthDate))
 {
-    *this = other;
-}
-
-const Person& Person::operator=(const Person& other)
-{
-    if (this != &other)
-    {
-        this->id = other.id;
-        this->birthDate = other.birthDate;
-        delete[]this->name;
-        this->name = strdup(other.name);
-    }
-    return *this;
+    name = nullptr;
+	std::swap(name, other.name);
 }
 
 Person::~Person()

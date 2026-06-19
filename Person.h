@@ -12,8 +12,9 @@ private:
 
 public:
     Person(const char* name, int id, const Date& birthDate);
-    Person(const Person& other);
-    const Person& operator=(const Person& other);
+    Person(const Person& other) = delete;
+    Person(Person&& other);
+    const Person& operator=(const Person& other) = delete;
     virtual ~Person();
 
     const char* getName() const { return name; };

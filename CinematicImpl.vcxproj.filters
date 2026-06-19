@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Cinema.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,25 +39,28 @@
     <ClCompile Include="Hall3DVIP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Reviewer.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Movie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VIPTicket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VIPHall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Movie.cpp">
+    <ClCompile Include="Reviewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shift.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ticket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VIPHall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VIPTicket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
