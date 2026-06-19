@@ -35,6 +35,17 @@ public:
     const bool hasNext() const { return next != nullptr; }
     const LinkedList<T> getNext() const { return next; }
     void setNext(LinkedList<T> next) { this->next = next; }
+    const int length() const 
+    {
+        int len = 1;
+        LinkedList<T> node = *this;
+        while(node != nullptr)
+        {
+            node = node.getNext();
+            len++;
+        }
+        
+    }
 
     const LinkedList& operator+=(T* val)
     {
@@ -51,7 +62,7 @@ public:
             node = node.getNext();
             index--;
         }
-        if (node == nullptr) return T();
+        assert(node != nullptr && "Index out of bounds!");
         return node.getVal();
     }
 };
