@@ -14,13 +14,11 @@ Movie::Movie(const Movie& other) : title(nullptr)
     *this = other;
 }
 
-Movie::Movie(Movie&& other)
+Movie::Movie(Movie&& other) : 
+    title(nullptr), premiereDate(std::move(other.premiereDate)), 
+    lengthMinutes(other.lengthMinutes), is3D(other.is3D)
 {
-    this->title = other.title;
-    other.title = nullptr;
-    this->premiereDate = other.premiereDate;
-    this->lengthMinutes = other.lengthMinutes;
-    this->is3D = other.is3D;
+    std::swap(title, other.title);
 }
 
 Movie& Movie::operator=(const Movie& other)
