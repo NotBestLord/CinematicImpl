@@ -14,35 +14,49 @@ Movie::Movie(const Movie& other) : title(nullptr)
     *this = other;
 }
 
-Movie::Movie(Movie&& other) : 
-    title(nullptr), premiereDate(std::move(other.premiereDate)), 
-    lengthMinutes(other.lengthMinutes), is3D(other.is3D)
+Movie::Movie(Movie&& other) :
+	premiereDate(std::move(other.premiereDate)), 
+    title(nullptr),
+    lengthMinutes(other.lengthMinutes),
+	is3D(other.is3D)
 {
     std::swap(title, other.title);
 }
 
-Movie& Movie::operator=(const Movie& other)
+const Movie& Movie::operator=(const Movie& other)
 {
     if (this != &other)
     {
-        this->premiereDate = other.premiereDate;
-        this->lengthMinutes = other.lengthMinutes;
-        this->is3D = other.is3D;
-        delete[]this->title;
-        this->title = strdup(other.title);
+        premiereDate = other.premiereDate;
+        lengthMinutes = other.lengthMinutes;
+        is3D = other.is3D;
+        delete[]title;
+        title = strdup(other.title);
     }
     return *this;
 }
 
+const Movie& Movie::operator=(Movie&& other)
+{
+	if (this != &other)
+	{
+		std::swap(title, other.title);
+		premiereDate = std::move(other.premiereDate);
+		lengthMinutes = other.lengthMinutes;
+		is3D = other.is3D;
+	}
+	return *this;
+}
+
 Movie::~Movie()
 {
-    delete []this->title;
+    delete []title;
 }
 
 void Movie::setTitle(const char* newTitle)
 {
-    delete []this->title;
-    this->title = strdup(newTitle);
+    delete []title;
+    title = strdup(newTitle);
 }
 
 ostream& operator<<(ostream& os, const Movie& m)

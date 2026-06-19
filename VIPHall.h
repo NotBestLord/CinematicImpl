@@ -9,11 +9,10 @@ private:
 
 public:
     VIPHall(int hallNumber, const Movie& currentMovie, int waitersCount) : 
-            Hall(hallNumber, currentMovie), waitersCount(waitersCount) {};
-    VIPHall& operator=(const VIPHall& other) = delete;
+            Hall(hallNumber, currentMovie), waitersCount(waitersCount) {}
 
-    int getWaitersCount() const { return waitersCount; };
-    void setWaitersCount(int c) { waitersCount = c; };
+    int getWaitersCount() const { return waitersCount; }
+    void setWaitersCount(int c) { waitersCount = c; }
 
     void toOs(std::ostream& os) const override;
 };

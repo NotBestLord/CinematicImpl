@@ -36,25 +36,7 @@ Cinema::Cinema(Cinema&& other) :
 	movies(nullptr),
 	shifts(nullptr)
 {
-	std::swap(employees, other.employees);
-	this->employeesCapacity = other.employeesCapacity;
-	this->numEmployees = other.numEmployees;
-
-	std::swap(guests, other.guests);
-	this->guestsCapacity = other.guestsCapacity;
-	this->numGuests = other.numGuests;
-
-	std::swap(halls, other.halls);
-	this->hallsCapacity = other.hallsCapacity;
-	this->numHalls = other.numHalls;
-
-	std::swap(movies, other.movies);
-	this->moviesCapacity = other.moviesCapacity;
-	this->numMovies = other.numMovies;
-
-	std::swap(shifts, other.shifts);
-	this->shiftsCapacity = other.shiftsCapacity;
-	this->numShifts = other.numShifts;
+	*this = std::move(other);
 }
 
 const Cinema& Cinema::operator=(const Cinema& other)
@@ -104,11 +86,11 @@ const Cinema& Cinema::operator=(const Cinema& other)
 		shifts = new const Shift * [shiftsCapacity];
 		for (int i = 0; i < numEmployees; i++)
 		{
-			employees[i] = new Employee(*other.employees[i]);
+			employees[i] = other.employees[i];
 		}
 		for (int i = 0; i < numGuests; i++)
 		{
-			guests[i] = new Guest(*other.guests[i]);
+			guests[i] = other.guests[i];
 		}
 		for (int i = 0; i < numHalls; i++)
 		{
@@ -122,6 +104,33 @@ const Cinema& Cinema::operator=(const Cinema& other)
 		{
 			shifts[i] = new Shift(*other.shifts[i]);
 		}
+	}
+	return *this;
+}
+
+const Cinema& Cinema::operator=(Cinema&& other)
+{
+	if (this != &other)
+	{
+		std::swap(employees, other.employees);
+		employeesCapacity = other.employeesCapacity;
+		numEmployees = other.numEmployees;
+
+		std::swap(guests, other.guests);
+		guestsCapacity = other.guestsCapacity;
+		numGuests = other.numGuests;
+
+		std::swap(halls, other.halls);
+		hallsCapacity = other.hallsCapacity;
+		numHalls = other.numHalls;
+
+		std::swap(movies, other.movies);
+		moviesCapacity = other.moviesCapacity;
+		numMovies = other.numMovies;
+
+		std::swap(shifts, other.shifts);
+		shiftsCapacity = other.shiftsCapacity;
+		numShifts = other.numShifts;
 	}
 	return *this;
 }

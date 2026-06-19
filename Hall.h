@@ -17,8 +17,6 @@ private:
 
 public:
     Hall(int hallNumber, const Movie& currentMovie);
-    Hall(const Hall& other);
-    Hall& operator=(const Hall& other) = delete;
 
     int getHallNumber() const { return hallNumber; }
     const Movie& getCurrentMovie() const { return currentMovie; }

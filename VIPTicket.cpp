@@ -2,5 +2,5 @@
 
 double VIPTicket::calcFinalPrice() const
 {
-    return this->Ticket::calcFinalPrice() + VIP_SURCHARGE + (this->includesMeal ? MEAL_PRICE : 0.);
+    return Ticket::calcFinalPrice() + VIP_SURCHARGE + (includesMeal ? MEAL_PRICE : 0.);
 }

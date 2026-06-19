@@ -15,7 +15,8 @@ public:
     Movie(const char* title, const Date& premiereDate, int lengthMinutes, bool is3D);
     Movie(const Movie& other);
     Movie(Movie&& other);
-    Movie& operator=(const Movie& other);
+    const Movie& operator=(const Movie& other);
+    const Movie& operator=(Movie&& other);
     ~Movie();
 
     const char* getTitle() const { return title; };

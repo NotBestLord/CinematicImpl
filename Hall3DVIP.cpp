@@ -5,8 +5,6 @@ Hall3DVIP::Hall3DVIP(int hallNumber, const Movie& currentMovie, int waitersCount
 	VIPHall(hallNumber, currentMovie, waitersCount),
 	Hall3D(hallNumber, currentMovie, glassesCount) {}
 
-Hall3DVIP::Hall3DVIP(const Hall3DVIP& other) : Hall(other), VIPHall(other), Hall3D(other) {}
-
 void Hall3DVIP::toOs(ostream& os) const
 {
 	Hall3D::toOs(os);

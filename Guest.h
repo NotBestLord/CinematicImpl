@@ -19,9 +19,7 @@ private:
 
 public:
     Guest(const char* name, int id, const Date& birthDate, int visitCount = 0);
-    Guest(const Guest& other);
     virtual ~Guest() override;
-    const Guest& operator=(const Guest& other);
 
     int getVisitCount() const { return visitCount; }
     int getNumTickets() const { return numTickets; }

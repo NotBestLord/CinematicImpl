@@ -8,21 +8,15 @@ Person::Person(const char* name, int id, const Date& birthDate) : id(id), birthD
     this->name = strdup(name);
 }
 
-Person::Person(Person&& other) : id(other.id), birthDate(std::move(other.birthDate))
-{
-    name = nullptr;
-	std::swap(name, other.name);
-}
-
 Person::~Person()
 {
-    delete []this->name;
+    delete []name;
 }
 
 void Person::setName(const char* newName)
 {
-    delete []this->name;
-    this->name = strdup(newName);
+    delete []name;
+    name = strdup(newName);
 }
 
 ostream& operator<<(ostream& os, const Person& p)

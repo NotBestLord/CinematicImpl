@@ -12,11 +12,10 @@ private:
 
 public:
     VIPTicket(const Movie& movie, bool is3D, bool includesMeal) :
-            Ticket(movie, is3D), includesMeal(includesMeal) {};
-    VIPTicket& operator=(const VIPTicket& other) = delete;
+            Ticket(movie, is3D), includesMeal(includesMeal) {}
 
-    bool getIncludesMeal() const { return includesMeal; };
-    void setIncludesMeal(bool m) { includesMeal = m; };
+    bool getIncludesMeal() const { return includesMeal; }
+    void setIncludesMeal(bool m) { includesMeal = m; }
 
     double calcFinalPrice() const override;
 };

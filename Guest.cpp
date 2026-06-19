@@ -11,34 +11,6 @@ Guest::Guest(const char* name, int id, const Date& birthDate, int visitCount) : 
 	tickets = new Ticket*[ticketsCapacity];
 }
 
-Guest::Guest(const Guest& other) : Person(other)
-{
-	*this = other;
-}
-
-const Guest& Guest::operator=(const Guest& other)
-{
-	if (this != &other)
-	{
-		visitCount = other.visitCount;
-		for (int i = 0; i < numTickets; i++)
-		{
-			delete tickets[i];
-		}
-		delete tickets;
-
-		numTickets = other.numTickets;
-		ticketsCapacity = other.ticketsCapacity;
-		tickets = new Ticket*[ticketsCapacity];
-		for (int i = 0; i < numTickets; i++)
-		{
-			tickets[i] = new Ticket(*other.tickets[i]);
-		}
-		Person::operator=(other);
-	}
-	return *this;
-}
-
 Guest::~Guest()
 {
 	for (int i = 0; i < numTickets; i++)

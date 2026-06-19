@@ -1,8 +1,6 @@
 #include "Hall.h"
 
-Hall::Hall(int hallNumber, const Movie& currentMovie) : hallNumber(hallNumber), currentMovie(currentMovie) {}
-
-Hall::Hall(const Hall& other) : hallNumber(other.hallNumber), currentMovie(other.currentMovie) {}
+Hall::Hall(int hallNumber, const Movie& currentMovie) : hallNumber(hallNumber), seats(), currentMovie(currentMovie) {}
 
 int Hall::countTakenSeats() const
 {

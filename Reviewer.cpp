@@ -7,33 +7,18 @@ Reviewer::Reviewer(const char* name, int id, const Date& birthDate, const char* 
     this->publicationName = strdup(publicationName);
 }
 
-Reviewer::Reviewer(const Reviewer& other) : Guest(other), publicationName(nullptr)
-{
-    *this = other;
-}
-
-const Reviewer& Reviewer::operator=(const Reviewer& other)
-{
-    if (this != &other)
-    {
-        delete[]this->publicationName;
-        this->publicationName = strdup(other.publicationName);
-    }
-    return *this;
-}
-
 Reviewer::~Reviewer()
 {
-    delete []this->publicationName;
+    delete []publicationName;
 }
 
 void Reviewer::setPublicationName(const char* name)
 {
-    delete[] this->publicationName;
-    this->publicationName = strdup(name);
+    delete[] publicationName;
+    publicationName = strdup(name);
 }
 
 void Reviewer::toOs(std::ostream& os) const
 {
-    os << ", " << this->publicationName << ", " << this->getVisitCount() << " | Reviewer";
+    os << ", " << publicationName << ", " << getVisitCount() << " | Reviewer";
 }

@@ -43,6 +43,7 @@ public:
     Cinema(const Cinema& other);
     Cinema(Cinema&& other);
     const Cinema& operator=(const Cinema& other);
+    const Cinema& operator=(Cinema&& other);
     ~Cinema();
     
     int getNumEmployees() const { return numEmployees; }
