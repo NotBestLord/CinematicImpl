@@ -284,7 +284,7 @@ void Cinema::printAllMovies() const
 {
 	for (int i = 0; i < numMovies; i++)
 	{
-		cout << i << ". " << *movies[i]->getTitle() << endl;
+		cout << i << ". " << movies[i]->getTitle() << endl;
 	}
 }
 
