@@ -14,6 +14,7 @@ private:
 public:
     Movie(const char* title, const Date& premiereDate, int lengthMinutes, bool is3D);
     Movie(const Movie& other);
+    Movie(Movie&& other);
     Movie& operator=(const Movie& other);
     ~Movie();
 

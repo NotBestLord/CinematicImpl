@@ -41,6 +41,7 @@ private:
 public:
     Cinema();
     Cinema(const Cinema& other);
+    Cinema(Cinema&& other);
     const Cinema& operator=(const Cinema& other);
     ~Cinema();
     

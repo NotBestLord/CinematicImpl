@@ -1,0 +1,70 @@
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+
+#include <iostream>
+
+template <class T>
+class LinkedList {
+private:
+    T val;
+    LinkedList<T> next;
+
+public:
+    LinkedList(const T& val) : val(val), next(nullptr) {}
+    LinkedList(const LinkedList& other) : next(nullptr)
+    {
+        *this = other;
+    }
+    const LinkedList& operator=(const LinkedList<T>& other)
+    {
+        if (this != &other)
+        {
+            this->val = other.val;
+            delete this->next;
+            this->next = other.next;
+        }
+        return *this;
+    }
+    ~LinkedList()
+    {
+        if (hasNext()) delete next;
+    }
+    
+    const T getVal() const { return val; }
+    void setVal(T val) { this->val = val; }
+    const bool hasNext() const { return next != nullptr; }
+    const LinkedList<T> getNext() const { return next; }
+    void setNext(LinkedList<T> next) { this->next = next; }
+    const int length() const 
+    {
+        int len = 1;
+        LinkedList<T> node = *this;
+        while(node != nullptr)
+        {
+            node = node.getNext();
+            len++;
+        }
+        
+    }
+
+    const LinkedList& operator+=(T* val)
+    {
+        LinkedList<T> addTo = *this;
+        while (addTo.hasNext()) addTo = addTo.getNext();
+        addTo.setNext(new LinkedList(val));
+    }
+    
+    const T& operator[](int index) const {
+        assert(index >= 0 && "Index out of bounds!");
+        LinkedList<T> node = *this;
+        while(index > 0 && node != nullptr)
+        {
+            node = node.getNext();
+            index--;
+        }
+        assert(node != nullptr && "Index out of bounds!");
+        return node.getVal();
+    }
+};
+
+#endif

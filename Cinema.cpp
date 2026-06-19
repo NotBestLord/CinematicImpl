@@ -19,9 +19,42 @@ Cinema::Cinema()
 	shifts = new const Shift*[INITIAL_CAPACITY];
 }
 
-Cinema::Cinema(const Cinema& other)
+Cinema::Cinema(const Cinema& other) :
+	employees(nullptr),
+	guests(nullptr),
+	halls(nullptr),
+	movies(nullptr),
+	shifts(nullptr)
 {
 	*this = other;
+}
+
+Cinema::Cinema(Cinema&& other) :
+	employees(nullptr),
+	guests(nullptr),
+	halls(nullptr),
+	movies(nullptr),
+	shifts(nullptr)
+{
+	std::swap(employees, other.employees);
+	this->employeesCapacity = other.employeesCapacity;
+	this->numEmployees = other.numEmployees;
+
+	std::swap(guests, other.guests);
+	this->guestsCapacity = other.guestsCapacity;
+	this->numGuests = other.numGuests;
+
+	std::swap(halls, other.halls);
+	this->hallsCapacity = other.hallsCapacity;
+	this->numHalls = other.numHalls;
+
+	std::swap(movies, other.movies);
+	this->moviesCapacity = other.moviesCapacity;
+	this->numMovies = other.numMovies;
+
+	std::swap(shifts, other.shifts);
+	this->shiftsCapacity = other.shiftsCapacity;
+	this->numShifts = other.numShifts;
 }
 
 const Cinema& Cinema::operator=(const Cinema& other)
