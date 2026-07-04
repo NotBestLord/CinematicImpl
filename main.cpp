@@ -14,7 +14,7 @@ static constexpr int MAX_INPUT_LEN = 256;
 
 using namespace std;
 
-static int readInt(std::string prompt) {
+static int readInt(string prompt) {
     int value;
     while (true) {
         cout << prompt;
@@ -28,7 +28,7 @@ static int readInt(std::string prompt) {
     }
 }
 
-static int readIntInRange(std::string prompt, int minVal, int maxVal) {
+static int readIntInRange(string prompt, int minVal, int maxVal) {
     while (true) {
         int v = readInt(prompt);
         if (v >= minVal && v <= maxVal) return v;
@@ -37,7 +37,7 @@ static int readIntInRange(std::string prompt, int minVal, int maxVal) {
     }
 }
 
-static double readPositiveDouble(std::string prompt) {
+static double readPositiveDouble(string prompt) {
     double value;
     while (true) {
         cout << prompt;
@@ -51,9 +51,11 @@ static double readPositiveDouble(std::string prompt) {
     }
 }
 
-static void readLine(std::string prompt, char* buffer, int bufferSize) {
+static void readLine(string prompt, string& buffer, int bufferSize) {
     cout << prompt;
-    cin.getline(buffer, bufferSize);
+    char bufferArr[bufferSize];
+    cin.getline(bufferArr, bufferSize);
+    buffer = string(bufferArr);
     if (cin.fail()) {
         cin.clear();
         cin.ignore(INT_MAX, '\n');
@@ -61,7 +63,7 @@ static void readLine(std::string prompt, char* buffer, int bufferSize) {
     }
 }
 
-static Date readDate(std::string label) {
+static Date readDate(string label) {
     cout << "Enter " << label << ":" << endl;
     int d = readIntInRange("  Day (1-31): ", 1, 31);
     int m = readIntInRange("  Month (1-12): ", 1, 12);
@@ -69,8 +71,8 @@ static Date readDate(std::string label) {
     return Date(d, m, y);
 }
 
-static bool readYesNo(std::string prompt) {
-    char buffer[8];
+static bool readYesNo(string prompt) {
+    string buffer;
     while (true) {
         readLine(prompt, buffer, 8);
         if (buffer[0] == 'y' || buffer[0] == 'Y') return true;
@@ -136,7 +138,7 @@ static void addHall(Cinema& cinema) {
 static void addMovie(Cinema& cinema) {
     cout << "\n--- Add new movie ---" << endl;
 
-    char title[MAX_INPUT_LEN];
+    string title;
     readLine("Enter movie title: ", title, MAX_INPUT_LEN);
 
     Date premiere = readDate("premiere date");
@@ -156,7 +158,7 @@ static void addMovie(Cinema& cinema) {
 static void addEmployee(Cinema& cinema) {
     cout << "\n--- Register new employee ---" << endl;
 
-    char name[MAX_INPUT_LEN];
+    string name;
     readLine("Employee name: ", name, MAX_INPUT_LEN);
     int id = readInt("ID number: ");
     Date birth = readDate("birth date");
@@ -180,7 +182,7 @@ static void addGuest(Cinema& cinema) {
               << "  2. Reviewer (movie critic)" << endl;
     int type = readIntInRange("Type: ", 1, 2);
 
-    char name[MAX_INPUT_LEN];
+    string name;
     readLine("Guest name: ", name, MAX_INPUT_LEN);
     int id = readInt("ID number: ");
     Date date = readDate("birth date");
@@ -190,7 +192,7 @@ static void addGuest(Cinema& cinema) {
         int points = readIntInRange("Initial club points: ", 0, 100000);
         guest = new Customer(name, id, date, points);
     } else {
-        char pub[MAX_INPUT_LEN];
+        string pub;
         readLine("Publication name: ", pub, MAX_INPUT_LEN);
         guest = new Reviewer(name, id, date, pub);
     }

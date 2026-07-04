@@ -5,14 +5,14 @@
 
 class Reviewer : public Guest {
 private:
-    char* publicationName;
+    std::string publicationName;
 
 public:
-    Reviewer(const char* name, int id, const Date& birthDate, const char* publicationName, int visitCount = 0);
-    ~Reviewer() override;
+    Reviewer(std::string name, int id, const Date& birthDate, std::string publicationName, int visitCount = 0);
+    ~Reviewer() override = default;
 
-    const char* getPublicationName() const { return publicationName; }
-    void setPublicationName(const char* name);
+    std::string getPublicationName() const { return publicationName; }
+    void setPublicationName(std::string name);
 
     void toOs(std::ostream& os) const override;
 };
