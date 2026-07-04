@@ -10,6 +10,12 @@
 class Cinema {
 public:
     static constexpr int INITIAL_CAPACITY = 10;
+	static Cinema& getInstance()
+	{
+		static Cinema theCinema;
+		return theCinema;
+	}
+	~Cinema();
 
 private:
     Employee** employees;
@@ -38,14 +44,13 @@ private:
     void resizeMovies();
     void resizeShifts();
 
+	Cinema();
+	Cinema(const Cinema& other);
+	Cinema(Cinema&& other);
+	const Cinema& operator=(const Cinema& other);
+	const Cinema& operator=(Cinema&& other);
+
 public:
-    Cinema();
-    Cinema(const Cinema& other);
-    Cinema(Cinema&& other);
-    const Cinema& operator=(const Cinema& other);
-    const Cinema& operator=(Cinema&& other);
-    ~Cinema();
-    
     int getNumEmployees() const { return numEmployees; }
     int getNumGuests() const { return numGuests; }
     int getNumHalls() const { return numHalls; }
