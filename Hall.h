@@ -3,6 +3,7 @@
 
 #include "Movie.h"
 #include <iostream>
+#include <array>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ public:
 
 private:
     int hallNumber;
-    bool seats[NUM_SEATS];
+    array<bool, NUM_SEATS> seats;
     const Movie& currentMovie;
 
 public:

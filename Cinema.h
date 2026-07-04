@@ -1,11 +1,15 @@
 #ifndef CINEMA_H
 #define CINEMA_H
 
+#include <vector>
+
 #include "Employee.h"
 #include "Guest.h"
 #include "Hall.h"
 #include "Movie.h"
 #include "Shift.h"
+
+using namespace std;
 
 class Cinema {
 public:
@@ -18,31 +22,11 @@ public:
 	~Cinema();
 
 private:
-    Employee** employees;
-    int numEmployees;
-    int employeesCapacity;
-
-    Guest** guests;
-    int numGuests;
-    int guestsCapacity;
-
-    Hall** halls;
-    int numHalls;
-    int hallsCapacity;
-
-    const Movie** movies;
-    int numMovies;
-    int moviesCapacity;
-
-    const Shift** shifts;
-    int numShifts;
-    int shiftsCapacity;
-
-    void resizeEmployees();
-    void resizeGuests();
-    void resizeHalls();
-    void resizeMovies();
-    void resizeShifts();
+    vector<Employee*> employees;
+    vector<Guest*> guests;
+    vector<Hall*> halls;
+    vector<const Movie*> movies;
+    vector<const Shift*> shifts;
 
 	Cinema();
 	Cinema(const Cinema& other);
@@ -51,12 +35,6 @@ private:
 	const Cinema& operator=(Cinema&& other);
 
 public:
-    int getNumEmployees() const { return numEmployees; }
-    int getNumGuests() const { return numGuests; }
-    int getNumHalls() const { return numHalls; }
-    int getNumMovies() const { return numMovies; }
-    int getNumShifts() const { return numShifts; }
-
     const Employee* getEmployeeByIndex(int i) const;
     Employee* getEmployeeByIndex(int i);
     const Guest* getGuestByIndex(int i) const;
