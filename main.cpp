@@ -6,9 +6,6 @@
 #include "Reviewer.h"
 #include "VIPTicket.h"
 #include "HallBuilder.h"
-#include "VIPHall.h"
-#include "Hall3D.h"
-#include "Hall3DVIP.h"
 
 static constexpr int MAX_INPUT_LEN = 256;
 

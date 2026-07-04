@@ -28,21 +28,17 @@ private:
     vector<const Movie*> movies;
     vector<const Shift*> shifts;
 
-	Cinema();
-	Cinema(const Cinema& other);
-	Cinema(Cinema&& other);
-	const Cinema& operator=(const Cinema& other);
-	const Cinema& operator=(Cinema&& other);
+	Cinema() = default;
 
 public:
-    const Employee* getEmployeeByIndex(int i) const;
-    Employee* getEmployeeByIndex(int i);
-    const Guest* getGuestByIndex(int i) const;
-    Guest* getGuestByIndex(int i);
-    const Hall* getHallByIndex(int i) const;
-    Hall* getHallByIndex(int i);
-    const Movie* getMovieByIndex(int i) const;
-    const Shift* getShiftByIndex(int i) const;
+    const Employee* getEmployeeByIndex(size_t i) const;
+    Employee* getEmployeeByIndex(size_t i);
+    const Guest* getGuestByIndex(size_t i) const;
+    Guest* getGuestByIndex(size_t i);
+    const Hall* getHallByIndex(size_t i) const;
+    Hall* getHallByIndex(size_t i);
+    const Movie* getMovieByIndex(size_t i) const;
+    const Shift* getShiftByIndex(size_t i) const;
 
     Guest* findGuestById(int id) const;
     Employee* findEmployeeById(int id) const;
@@ -50,8 +46,8 @@ public:
     const Cinema& operator+=(Employee* e);
 	const Cinema& operator+=(Guest* g);
 	const Cinema& operator+=(Hall* h);
-	const Cinema& operator+=(Movie* m);
-	const Cinema& operator+=(Shift* s);
+	const Cinema& operator+=(const Movie* m);
+	const Cinema& operator+=(const Shift* s);
 
 	const Cinema& operator-=(int guestId);
 
