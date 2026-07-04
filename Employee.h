@@ -12,7 +12,8 @@ private:
     static constexpr double PROMOTION_PERCENTAGE = .1;
 
 public:
-    Employee(const char* name, int id, const Date& birthDate, double salary);
+    Employee(std::string name, int id, const Date& birthDate, double salary);
+	~Employee() override = default;
 
     double getSalary() const { return salary; }
     void setSalary(double newSalary) { salary = newSalary; }

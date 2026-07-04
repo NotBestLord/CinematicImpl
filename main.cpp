@@ -5,6 +5,7 @@
 #include "Customer.h"
 #include "Reviewer.h"
 #include "VIPTicket.h"
+#include "HallBuilder.h"
 #include "VIPHall.h"
 #include "Hall3D.h"
 #include "Hall3DVIP.h"
@@ -13,7 +14,7 @@ static constexpr int MAX_INPUT_LEN = 256;
 
 using namespace std;
 
-static int readInt(const char* prompt) {
+static int readInt(string prompt) {
     int value;
     while (true) {
         cout << prompt;
@@ -27,7 +28,7 @@ static int readInt(const char* prompt) {
     }
 }
 
-static int readIntInRange(const char* prompt, int minVal, int maxVal) {
+static int readIntInRange(string prompt, int minVal, int maxVal) {
     while (true) {
         int v = readInt(prompt);
         if (v >= minVal && v <= maxVal) return v;
@@ -36,7 +37,7 @@ static int readIntInRange(const char* prompt, int minVal, int maxVal) {
     }
 }
 
-static double readPositiveDouble(const char* prompt) {
+static double readPositiveDouble(string prompt) {
     double value;
     while (true) {
         cout << prompt;
@@ -50,9 +51,11 @@ static double readPositiveDouble(const char* prompt) {
     }
 }
 
-static void readLine(const char* prompt, char* buffer, int bufferSize) {
+static void readLine(string prompt, string& buffer, int bufferSize) {
     cout << prompt;
-    cin.getline(buffer, bufferSize);
+    char bufferArr[bufferSize];
+    cin.getline(bufferArr, bufferSize);
+    buffer = string(bufferArr);
     if (cin.fail()) {
         cin.clear();
         cin.ignore(INT_MAX, '\n');
@@ -60,7 +63,7 @@ static void readLine(const char* prompt, char* buffer, int bufferSize) {
     }
 }
 
-static Date readDate(const char* label) {
+static Date readDate(string label) {
     cout << "Enter " << label << ":" << endl;
     int d = readIntInRange("  Day (1-31): ", 1, 31);
     int m = readIntInRange("  Month (1-12): ", 1, 12);
@@ -68,8 +71,8 @@ static Date readDate(const char* label) {
     return Date(d, m, y);
 }
 
-static bool readYesNo(const char* prompt) {
-    char buffer[8];
+static bool readYesNo(string prompt) {
+    string buffer;
     while (true) {
         readLine(prompt, buffer, 8);
         if (buffer[0] == 'y' || buffer[0] == 'Y') return true;
@@ -99,29 +102,30 @@ static void addHall(Cinema& cinema) {
               << "  4. 3D VIP Hall" << endl;
     int type = readIntInRange("Type: ", 1, 4);
 
-    Hall* hall = nullptr;
+    HallBuilder* builder;
     switch (type) {
-        case 1:
-            hall = new Hall(hallNumber, *movie);
-            break;
-        case 2: {
-            int waiters = readIntInRange("Waiters count: ", 0, 50);
-            hall = new VIPHall(hallNumber, *movie, waiters);
-            break;
-        }
-        case 3: {
-            int glasses = readIntInRange("Glasses count: ", 0, 200);
-            hall = new Hall3D(hallNumber, *movie, glasses);
-            break;
-        }
-        case 4: {
-            int waiters = readIntInRange("Waiters count: ", 0, 50);
-            int glasses = readIntInRange("Glasses count: ", 0, 200);
-            hall = new Hall3DVIP(hallNumber, *movie, waiters, glasses);
-            break;
-        }
+        case 1: builder = new HallBuilder(*movie);       break;
+        case 2: builder = new VIPHallBuilder(*movie);    break;
+        case 3: builder = new Hall3DBuilder(*movie);     break;
+        case 4: builder = new Hall3DVIPBuilder(*movie);  break;
     }
 
+    builder->setHallNumber(hallNumber);
+
+    if (type == 2 || type == 4)
+    {
+        int waiters = readIntInRange("Waiters count: ", 0, 50);
+        dynamic_cast<VIPHallBuilder*>(builder)->setWaitersCount(waiters);
+    }
+    if (type == 3 || type == 4)
+    {
+        int glasses = readIntInRange("Glasses count: ", 0, 200);
+        dynamic_cast<Hall3DBuilder*>(builder)->setGlassesCount(glasses);
+    }
+
+    Hall* hall = builder->build();
+    delete builder;
+    
     try {
         cinema += hall;
         cout << "Hall added successfully." << endl;
@@ -134,7 +138,7 @@ static void addHall(Cinema& cinema) {
 static void addMovie(Cinema& cinema) {
     cout << "\n--- Add new movie ---" << endl;
 
-    char title[MAX_INPUT_LEN];
+    string title;
     readLine("Enter movie title: ", title, MAX_INPUT_LEN);
 
     Date premiere = readDate("premiere date");
@@ -154,7 +158,7 @@ static void addMovie(Cinema& cinema) {
 static void addEmployee(Cinema& cinema) {
     cout << "\n--- Register new employee ---" << endl;
 
-    char name[MAX_INPUT_LEN];
+    string name;
     readLine("Employee name: ", name, MAX_INPUT_LEN);
     int id = readInt("ID number: ");
     Date birth = readDate("birth date");
@@ -178,7 +182,7 @@ static void addGuest(Cinema& cinema) {
               << "  2. Reviewer (movie critic)" << endl;
     int type = readIntInRange("Type: ", 1, 2);
 
-    char name[MAX_INPUT_LEN];
+    string name;
     readLine("Guest name: ", name, MAX_INPUT_LEN);
     int id = readInt("ID number: ");
     Date date = readDate("birth date");
@@ -188,7 +192,7 @@ static void addGuest(Cinema& cinema) {
         int points = readIntInRange("Initial club points: ", 0, 100000);
         guest = new Customer(name, id, date, points);
     } else {
-        char pub[MAX_INPUT_LEN];
+        string pub;
         readLine("Publication name: ", pub, MAX_INPUT_LEN);
         guest = new Reviewer(name, id, date, pub);
     }

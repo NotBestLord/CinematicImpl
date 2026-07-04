@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Guest::Guest(const char* name, int id, const Date& birthDate, int visitCount)
-		: Person(name, id, birthDate), visitCount(visitCount), numTickets(0)
+Guest::Guest(std::string name, int id, const Date& birthDate, int visitCount) : 
+	Person(name, id, birthDate), visitCount(visitCount), numTickets(0)
 {
 }
 

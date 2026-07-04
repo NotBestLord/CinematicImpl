@@ -6,20 +6,20 @@
 
 class Person {
 private:
-    char* name;
+    std::string name;
     int id;
     Date birthDate;
 
 public:
-    Person(const char* name, int id, const Date& birthDate);
+    Person(std::string name, int id, const Date& birthDate);
     Person(const Person& other) = delete;
-    virtual ~Person();
+    virtual ~Person() = 0;
 
-    const char* getName() const { return name; }
+    std::string getName() const { return name; }
     int getId() const { return id; }
 	const Date& getBirthDate() const { return birthDate; }
 
-    void setName(const char* newName);
+    void setName(std::string newName);
 
     virtual void toOs(std::ostream& os) const = 0;
 
