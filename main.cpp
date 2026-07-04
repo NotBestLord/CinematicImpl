@@ -385,6 +385,7 @@ static void removeGuest(Cinema& cinema) {
 
 static void printMenu() {
     cout << "\n========== Cinema Management System ==========" << endl
+              << "  0.  Exit" << endl
               << "  1.  Add new hall" << endl
               << "  2.  Add new movie" << endl
               << "  3.  Register new employee" << endl
@@ -397,12 +398,11 @@ static void printMenu() {
               << " 10.  Check if hall is empty" << endl
               << " 11.  Print all guests (polymorphism)" << endl
               << " 12.  Remove guest from system" << endl
-              << "  0.  Exit" << endl
               << "==============================================" << endl;
 }
 
 int main() {
-    Cinema cinema;
+    Cinema& cinema = Cinema::getInstance();
     int choice;
 
     cout << "Welcome to the Cinema Management System!" << endl;
@@ -413,6 +413,7 @@ int main() {
 
         try {
             switch (choice) {
+                case 0:  cout << "Goodbye!" << endl; break;
                 case 1:  addHall(cinema);                break;
                 case 2:  addMovie(cinema);               break;
                 case 3:  addEmployee(cinema);            break;
@@ -425,7 +426,6 @@ int main() {
                 case 10: checkHallEmpty(cinema);         break;
                 case 11: printAllGuestsOperation(cinema); break;
                 case 12: removeGuest(cinema);            break;
-                case 0:  cout << "Goodbye!" << endl; break;
                 default:
                     cout << "Invalid choice. Please pick 0-12." << endl;
             }
