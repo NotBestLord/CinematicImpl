@@ -1,314 +1,147 @@
 #include "Cinema.h"
 
-Cinema::Cinema()
-{
-	numEmployees = 0;
-	numGuests = 0;
-	numHalls = 0;
-	numMovies = 0;
-	numShifts = 0;
-	employeesCapacity = INITIAL_CAPACITY;
-	guestsCapacity = INITIAL_CAPACITY;
-	hallsCapacity = INITIAL_CAPACITY;
-	moviesCapacity = INITIAL_CAPACITY;
-	shiftsCapacity = INITIAL_CAPACITY;
-	employees = new Employee*[INITIAL_CAPACITY];
-	guests = new Guest*[INITIAL_CAPACITY];
-	halls = new Hall*[INITIAL_CAPACITY];
-	movies = new const Movie*[INITIAL_CAPACITY];
-	shifts = new const Shift*[INITIAL_CAPACITY];
-}
-
-Cinema::Cinema(const Cinema& other) :
-	employees(nullptr),
-	guests(nullptr),
-	halls(nullptr),
-	movies(nullptr),
-	shifts(nullptr)
-{
-	*this = other;
-}
-
-Cinema::Cinema(Cinema&& other) :
-	employees(nullptr),
-	guests(nullptr),
-	halls(nullptr),
-	movies(nullptr),
-	shifts(nullptr)
-{
-	*this = std::move(other);
-}
-
-const Cinema& Cinema::operator=(const Cinema& other)
-{
-	if (this != &other)
-	{
-		for (int i = 0; i < numEmployees; i++)
-		{
-			delete employees[i];
-		}
-		delete[] employees;
-		for (int i = 0; i < numGuests; i++)
-		{
-			delete guests[i];
-		}
-		delete[] guests;
-		for (int i = 0; i < numHalls; i++)
-		{
-			delete halls[i];
-		}
-		delete[] halls;
-			for (int i = 0; i < numMovies; i++)
-		{
-			delete movies[i];
-		}
-		delete[] movies;
-		for (int i = 0; i < numShifts; i++)
-		{
-			delete shifts[i];
-		}
-		delete[] shifts;
-
-		numEmployees = other.numEmployees;
-		numGuests = other.numGuests;
-		numHalls = other.numHalls;
-		numMovies = other.numMovies;
-		numShifts = other.numShifts;
-		employeesCapacity = other.employeesCapacity;
-		guestsCapacity = other.guestsCapacity;
-		hallsCapacity = other.hallsCapacity;
-		moviesCapacity = other.moviesCapacity;
-		shiftsCapacity = other.shiftsCapacity;
-		employees = new Employee * [employeesCapacity];
-		guests = new Guest * [guestsCapacity];
-		halls = new Hall * [hallsCapacity];
-		movies = new const Movie * [moviesCapacity];
-		shifts = new const Shift * [shiftsCapacity];
-		for (int i = 0; i < numEmployees; i++)
-		{
-			employees[i] = other.employees[i];
-		}
-		for (int i = 0; i < numGuests; i++)
-		{
-			guests[i] = other.guests[i];
-		}
-		for (int i = 0; i < numHalls; i++)
-		{
-			halls[i] = new Hall(*other.halls[i]);
-		}
-		for (int i = 0; i < numMovies; i++)
-		{
-			movies[i] = new Movie(*other.movies[i]);
-		}
-		for (int i = 0; i < numShifts; i++)
-		{
-			shifts[i] = new Shift(*other.shifts[i]);
-		}
-	}
-	return *this;
-}
-
-const Cinema& Cinema::operator=(Cinema&& other)
-{
-	if (this != &other)
-	{
-		std::swap(employees, other.employees);
-		employeesCapacity = other.employeesCapacity;
-		numEmployees = other.numEmployees;
-
-		std::swap(guests, other.guests);
-		guestsCapacity = other.guestsCapacity;
-		numGuests = other.numGuests;
-
-		std::swap(halls, other.halls);
-		hallsCapacity = other.hallsCapacity;
-		numHalls = other.numHalls;
-
-		std::swap(movies, other.movies);
-		moviesCapacity = other.moviesCapacity;
-		numMovies = other.numMovies;
-
-		std::swap(shifts, other.shifts);
-		shiftsCapacity = other.shiftsCapacity;
-		numShifts = other.numShifts;
-	}
-	return *this;
-}
-
 Cinema::~Cinema()
 {
-	for (int i = 0; i < numEmployees; i++)
-	{
-		delete employees[i];
-	}
-	delete[] employees;
-	for (int i = 0; i < numGuests; i++)
-	{
-		delete guests[i];
-	}
-	delete[] guests;
-	for (int i = 0; i < numHalls; i++)
-	{
-		delete halls[i];
-	}
-	delete[] halls;
-	for (int i = 0; i < numMovies; i++)
-	{
-		delete movies[i];
-	}
-	delete[] movies;
-	for (int i = 0; i < numShifts; i++)
-	{
-		delete shifts[i];
-	}
-	delete[] shifts;
+	for (Employee* employee : employees) { delete employee;	}
+	for (Guest* guest : guests) { delete guest;	}
+	for (Hall* hall : halls) { delete hall;	}
+	for (const Movie* movie : movies) { delete movie;	}
+	for (const Shift* shift : shifts) { delete shift;	}
 }
 
-const Employee* Cinema::getEmployeeByIndex(int i) const
+const Employee* Cinema::getEmployeeByIndex(size_t i) const
 {
-	if (i >= 0 && i <= employeesCapacity) return employees[i];
-	cout << "Index should be between 0 and " << employeesCapacity << ". Operation cancelled." << endl;
+	if (i <= employees.size()) return employees[i];
+	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-Employee* Cinema::getEmployeeByIndex(int i)
+Employee* Cinema::getEmployeeByIndex(size_t i)
 {
-	if (i >= 0 && i <= employeesCapacity) return employees[i];
-	cout << "Index should be between 0 and " << employeesCapacity << ". Operation cancelled." << endl;
+	if (i <= employees.size()) return employees[i];
+	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-const Guest* Cinema::getGuestByIndex(int i) const
+const Guest* Cinema::getGuestByIndex(size_t i) const
 {
-	if (i >= 0 && i <= guestsCapacity) return guests[i];
-	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
+	if (i <= guests.size()) return guests[i];
+	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-Guest* Cinema::getGuestByIndex(int i)
+Guest* Cinema::getGuestByIndex(size_t i)
 {
-	if (i >= 0 && i <= guestsCapacity) return guests[i];
-	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
+	if (i <= guests.size()) return guests[i];
+	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-const Hall* Cinema::getHallByIndex(int i) const
+const Hall* Cinema::getHallByIndex(size_t i) const
 {
-	if (i >= 0 && i <= hallsCapacity) return halls[i];
-	cout << "Index should be between 0 and " << hallsCapacity << ". Operation cancelled." << endl;
+	if (i <= halls.size()) return halls[i];
+	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-Hall* Cinema::getHallByIndex(int i)
+Hall* Cinema::getHallByIndex(size_t i)
 {
-	if (i >= 0 && i <= hallsCapacity) return halls[i];
-	cout << "Index should be between 0 and " << hallsCapacity << ". Operation cancelled." << endl;
+	if (i <= halls.size()) return halls[i];
+	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-const Movie* Cinema::getMovieByIndex(int i) const
+const Movie* Cinema::getMovieByIndex(size_t i) const
 {
-	if (i >= 0 && i <= moviesCapacity) return movies[i];
-	cout << "Index should be between 0 and " << moviesCapacity << ". Operation cancelled." << endl;
+	if (i <= movies.size()) return movies[i];
+	cout << "Index should be between 0 and " << movies.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-const Shift* Cinema::getShiftByIndex(int i) const
+const Shift* Cinema::getShiftByIndex(size_t i) const
 {
-	if (i >= 0 && i <= shiftsCapacity) return shifts[i];
-	cout << "Index should be between 0 and " << shiftsCapacity << ". Operation cancelled." << endl;
+	if (i <= shifts.size()) return shifts[i];
+	cout << "Index should be between 0 and " << shifts.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 Guest* Cinema::findGuestById(int id) const
 {
-	for (int i = 0; i < numGuests; i++)
+	for (Guest* guest : guests)
 	{
-		if (guests[i]->getId() == id) return guests[i];
+		if (guest->getId() == id) return guest;
 	}
-	cout << "Guest with given ID doesn't exist." << endl;;
+	cout << "Guest with given ID doesn't exist." << endl;
 	return nullptr;
 }
 
 Employee* Cinema::findEmployeeById(int id) const
 {
-	for (int i = 0; i < numEmployees; i++)
+	for (Employee* employee : employees)
 	{
-		if (employees[i]->getId() == id) return employees[i];
+		if (employee->getId() == id) return employee;
 	}
-	cout << "Employee with given ID doesn't exist." << endl;;
+	cout << "Employee with given ID doesn't exist." << endl;
 	return nullptr;
 }
 
 const Cinema& Cinema::operator+=(Employee* e)
 {
-	if (numEmployees == employeesCapacity) resizeEmployees();
-	employees[numEmployees++] = e;
+	employees.push_back(e);
 	return *this;
 }
 
 const Cinema& Cinema::operator+=(Guest* g)
 {
-	if (numGuests == guestsCapacity) resizeGuests();
-	guests[numGuests++] = g;
+	guests.push_back(g);
 	return *this;
 }
 
 const Cinema& Cinema::operator+=(Hall* h)
 {
-	if (numHalls == hallsCapacity) resizeHalls();
-	halls[numHalls++] = h;
+	halls.push_back(h);
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Movie* m)
+const Cinema& Cinema::operator+=(const Movie* m)
 {
-	if (numMovies == moviesCapacity) resizeMovies();
-	movies[numMovies++] = m;
+	movies.push_back(m);
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Shift* s)
+const Cinema& Cinema::operator+=(const Shift* s)
 {
-	if (numShifts == shiftsCapacity) resizeShifts();
-	shifts[numShifts++] = s;
+	shifts.push_back(s);
 	return *this;
 }
 
 const Cinema& Cinema::operator-=(int guestId)
 {
-	bool found = false;
-	for (int i = 0; i < numGuests; i++)
+	for (auto it = guests.begin(); it != guests.end(); ++it)
 	{
-		if (!found)
+		if ((*it)->getId() == guestId)
 		{
-			if (guests[i]->getId() == guestId)
-			{
-				delete guests[i];
-				numGuests--;
-			}
-		}
-		else
-		{
-			guests[i - 1] = guests[i];
-			guests[i] = nullptr;
+			delete* it;
+			guests.erase(it);
+			return *this;
 		}
 	}
-	if (!found) cout << "Guest with given ID doesn't exist. Operation cancelled." << endl;
+
+	cout << "Guest with given ID doesn't exist. Operation cancelled." << endl;
 	return *this;
 }
 
 void Cinema::printAllEmployees() const
 {
-	for (int i = 0; i < numEmployees; i++)
+	for (size_t i = 0; i < employees.size(); i++)
 	{
-		cout << i << ". " << employees[i] << endl;
+		cout << i << ". " << *employees[i] << endl;
 	}
 }
 
 void Cinema::printAllGuests() const
 {
-	for (int i = 0; i < numGuests; i++)
+	for (size_t i = 0; i < guests.size(); i++)
 	{
 		cout << i << ". " << *guests[i] << endl;
 	}
@@ -316,7 +149,7 @@ void Cinema::printAllGuests() const
 
 void Cinema::printAllHalls() const
 {
-	for (int i = 0; i < numHalls; i++)
+	for (size_t i = 0; i < halls.size(); i++)
 	{
 		cout << i << ". " << *halls[i] << endl;
 	}
@@ -324,7 +157,7 @@ void Cinema::printAllHalls() const
 
 void Cinema::printAllMovies() const
 {
-	for (int i = 0; i < numMovies; i++)
+	for (size_t i = 0; i < movies.size(); i++)
 	{
 		cout << i << ". " << movies[i]->getTitle() << endl;
 	}
@@ -332,68 +165,8 @@ void Cinema::printAllMovies() const
 
 void Cinema::printAllShifts() const
 {
-	for (int i = 0; i < numShifts; i++)
+	for (size_t i = 0; i < shifts.size(); i++)
 	{
 		cout << i << ". " << *shifts[i] << endl;
 	}
-}
-
-void Cinema::resizeEmployees()
-{
-	employeesCapacity *= 2;
-	Employee** temp = new Employee*[employeesCapacity];
-	for (int i = 0; i < numEmployees; i++)
-	{
-		temp[i] = employees[i];
-	}
-	delete[] employees;
-	employees = temp;
-}
-
-void Cinema::resizeGuests()
-{
-	guestsCapacity *= 2;
-	Guest** temp = new Guest*[guestsCapacity];
-	for (int i = 0; i < numGuests; i++)
-	{
-		temp[i] = guests[i];
-	}
-	delete[] guests;
-	guests = temp;
-}
-
-void Cinema::resizeHalls()
-{
-	hallsCapacity *= 2;
-	Hall** temp = new Hall*[hallsCapacity];
-	for (int i = 0; i < numHalls; i++)
-	{
-		temp[i] = halls[i];
-	}
-	delete[] halls;
-	halls = temp;
-}
-
-void Cinema::resizeMovies()
-{
-	moviesCapacity *= 2;
-	const Movie** temp = new const Movie*[moviesCapacity];
-	for (int i = 0; i < numMovies; i++)
-	{
-		temp[i] = movies[i];
-	}
-	delete[] movies;
-	movies = temp;
-}
-
-void Cinema::resizeShifts()
-{
-	shiftsCapacity *= 2;
-	const Shift** temp = new const Shift*[shiftsCapacity];
-	for (int i = 0; i < numShifts; i++)
-	{
-		temp[i] = shifts[i];
-	}
-	delete[] shifts;
-	shifts = temp;
 }

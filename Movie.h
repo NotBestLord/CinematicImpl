@@ -6,25 +6,20 @@
 
 class Movie {
 private:
-    char* title;
+    std::string title;
     Date premiereDate;
     int lengthMinutes;
     bool is3D;
 
 public:
-    Movie(const char* title, const Date& premiereDate, int lengthMinutes, bool is3D);
-    Movie(const Movie& other);
-    Movie(Movie&& other);
-    const Movie& operator=(const Movie& other);
-    const Movie& operator=(Movie&& other);
-    ~Movie();
+    Movie(std::string title, const Date& premiereDate, int lengthMinutes, bool is3D);
 
-    const char* getTitle() const { return title; };
+    std::string getTitle() const { return title; };
     const Date& getPremiereDate() const { return premiereDate; };
     int getLengthMinutes() const { return lengthMinutes; };
     bool getIs3D() const { return is3D; };
 
-    void setTitle(const char* newTitle);
+    void setTitle(std::string newTitle);
     void setLengthMinutes(int minutes) { lengthMinutes = minutes; };
     void setIs3D(bool flag) { is3D = flag; };
 

@@ -1,24 +1,19 @@
 #ifndef GUEST_H
 #define GUEST_H
 
+#include "Linkedlist.h"
 #include "Person.h"
 
 class Ticket;
 
 class Guest : public Person {
-public:
-    static constexpr int INITIAL_TICKETS_CAPACITY = 4;
-
 private:
     int visitCount;
-    Ticket** tickets;
+    LinkedList<Ticket*> tickets;
     int numTickets;
-    int ticketsCapacity;
-
-    void resizeTickets();
 
 public:
-    Guest(const char* name, int id, const Date& birthDate, int visitCount = 0);
+    Guest(std::string name, int id, const Date& birthDate, int visitCount = 0);
     virtual ~Guest() override;
 
     int getVisitCount() const { return visitCount; }

@@ -1,11 +1,15 @@
 #ifndef CINEMA_H
 #define CINEMA_H
 
+#include <vector>
+
 #include "Employee.h"
 #include "Guest.h"
 #include "Hall.h"
 #include "Movie.h"
 #include "Shift.h"
+
+using namespace std;
 
 class Cinema {
 public:
@@ -18,53 +22,23 @@ public:
 	~Cinema();
 
 private:
-    Employee** employees;
-    int numEmployees;
-    int employeesCapacity;
+    vector<Employee*> employees;
+    vector<Guest*> guests;
+    vector<Hall*> halls;
+    vector<const Movie*> movies;
+    vector<const Shift*> shifts;
 
-    Guest** guests;
-    int numGuests;
-    int guestsCapacity;
-
-    Hall** halls;
-    int numHalls;
-    int hallsCapacity;
-
-    const Movie** movies;
-    int numMovies;
-    int moviesCapacity;
-
-    const Shift** shifts;
-    int numShifts;
-    int shiftsCapacity;
-
-    void resizeEmployees();
-    void resizeGuests();
-    void resizeHalls();
-    void resizeMovies();
-    void resizeShifts();
-
-	Cinema();
-	Cinema(const Cinema& other);
-	Cinema(Cinema&& other);
-	const Cinema& operator=(const Cinema& other);
-	const Cinema& operator=(Cinema&& other);
+	Cinema() = default;
 
 public:
-    int getNumEmployees() const { return numEmployees; }
-    int getNumGuests() const { return numGuests; }
-    int getNumHalls() const { return numHalls; }
-    int getNumMovies() const { return numMovies; }
-    int getNumShifts() const { return numShifts; }
-
-    const Employee* getEmployeeByIndex(int i) const;
-    Employee* getEmployeeByIndex(int i);
-    const Guest* getGuestByIndex(int i) const;
-    Guest* getGuestByIndex(int i);
-    const Hall* getHallByIndex(int i) const;
-    Hall* getHallByIndex(int i);
-    const Movie* getMovieByIndex(int i) const;
-    const Shift* getShiftByIndex(int i) const;
+    const Employee* getEmployeeByIndex(size_t i) const;
+    Employee* getEmployeeByIndex(size_t i);
+    const Guest* getGuestByIndex(size_t i) const;
+    Guest* getGuestByIndex(size_t i);
+    const Hall* getHallByIndex(size_t i) const;
+    Hall* getHallByIndex(size_t i);
+    const Movie* getMovieByIndex(size_t i) const;
+    const Shift* getShiftByIndex(size_t i) const;
 
     Guest* findGuestById(int id) const;
     Employee* findEmployeeById(int id) const;
@@ -72,8 +46,8 @@ public:
     const Cinema& operator+=(Employee* e);
 	const Cinema& operator+=(Guest* g);
 	const Cinema& operator+=(Hall* h);
-	const Cinema& operator+=(Movie* m);
-	const Cinema& operator+=(Shift* s);
+	const Cinema& operator+=(const Movie* m);
+	const Cinema& operator+=(const Shift* s);
 
 	const Cinema& operator-=(int guestId);
 

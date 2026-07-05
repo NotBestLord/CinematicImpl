@@ -1,7 +1,8 @@
 #include "Employee.h"
 #include "Date.h"
 
-Employee::Employee(const char* name, int id, const Date& birthDate, double salary) : Person(name, id, birthDate), salary(salary) {}
+Employee::Employee(std::string name, int id, const Date& birthDate, double salary) : 
+	Person(name, id, birthDate), salary(salary) {}
 
 const Employee& Employee::operator++()
 {
