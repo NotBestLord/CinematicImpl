@@ -3,16 +3,18 @@
 
 #include "Guest.h"
 
+using namespace std;
+
 class Reviewer : public Guest {
 private:
-    std::string publicationName;
+    string publicationName;
 
 public:
-    Reviewer(std::string name, int id, const Date& birthDate, std::string publicationName, int visitCount = 0);
+    Reviewer(const string& name, int id, const Date& birthDate, const string& publicationName, int visitCount = 0);
     ~Reviewer() override = default;
 
-    std::string getPublicationName() const { return publicationName; }
-    void setPublicationName(std::string name);
+    const string& getPublicationName() const { return publicationName; }
+    void setPublicationName(const string& name);
 
     void toOs(std::ostream& os) const override;
 };

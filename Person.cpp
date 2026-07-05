@@ -1,12 +1,10 @@
 #include "Person.h"
 #include <cstring>
 
-using namespace std;
-
-Person::Person(std::string name, int id, const Date& birthDate) : 
+Person::Person(const string& name, int id, const Date& birthDate) : 
     name(name), id(id), birthDate(birthDate) {}
 
-void Person::setName(std::string newName)
+void Person::setName(const string& newName)
 {
     name = newName;
 }

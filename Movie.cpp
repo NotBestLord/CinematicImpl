@@ -2,10 +2,10 @@
 
 using namespace std;
 
-Movie::Movie(std::string title, const Date& premiereDate, int lengthMinutes, bool is3D) :
+Movie::Movie(const string& title, const Date& premiereDate, int lengthMinutes, bool is3D) :
         title(title), premiereDate(premiereDate), lengthMinutes(lengthMinutes), is3D(is3D) {}
 
-void Movie::setTitle(std::string newTitle)
+void Movie::setTitle(const string& newTitle)
 {
     title = newTitle;
 }

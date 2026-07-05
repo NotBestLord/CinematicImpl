@@ -1,7 +1,7 @@
 #include "Customer.h"
 #include "Date.h"
 
-Customer::Customer(std::string name, int id, const Date& birthDate, int clubPoints, int visitCount) : 
+Customer::Customer(const string& name, int id, const Date& birthDate, int clubPoints, int visitCount) : 
 	Guest(name, id, birthDate, visitCount), clubPoints(clubPoints) {}
 
 void Customer::toOs(ostream& os) const

@@ -12,7 +12,7 @@ private:
     static constexpr double PROMOTION_PERCENTAGE = .1;
 
 public:
-    Employee(std::string name, int id, const Date& birthDate, double salary);
+    Employee(const string& name, int id, const Date& birthDate, double salary);
 	~Employee() override = default;
 
     double getSalary() const { return salary; }
@@ -20,7 +20,7 @@ public:
 
 	const Employee& operator++();
 
-	void toOs(std::ostream& os) const override;
+	void toOs(ostream& os) const override;
 };
 
 #endif

@@ -11,7 +11,7 @@ private:
     int clubPoints;
 
 public:
-	Customer(std::string name, int id, const Date& birthDate, int clubPoints = 0, int visitCount = 0);
+	Customer(const string& name, int id, const Date& birthDate, int clubPoints = 0, int visitCount = 0);
 	~Customer() override = default;
 
 	int getClubPoints() const { return clubPoints; }

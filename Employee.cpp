@@ -1,7 +1,7 @@
 #include "Employee.h"
 #include "Date.h"
 
-Employee::Employee(std::string name, int id, const Date& birthDate, double salary) : 
+Employee::Employee(const string& name, int id, const Date& birthDate, double salary) : 
 	Person(name, id, birthDate), salary(salary) {}
 
 const Employee& Employee::operator++()
@@ -10,7 +10,7 @@ const Employee& Employee::operator++()
 	return *this;
 }
 
-void Employee::toOs(std::ostream& os) const
+void Employee::toOs(ostream& os) const
 {
 	os << ", " << "Salary: " << salary;
 }

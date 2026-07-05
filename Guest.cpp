@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Guest::Guest(std::string name, int id, const Date& birthDate, int visitCount) : 
+Guest::Guest(const string& name, int id, const Date& birthDate, int visitCount) : 
 	Person(name, id, birthDate), visitCount(visitCount)
 {
 	ticketsCapacity = INITIAL_TICKETS_CAPACITY;
