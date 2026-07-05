@@ -15,7 +15,7 @@ private:
 public:
     Person(const string& name, int id, const Date& birthDate);
     Person(const Person& other) = delete;
-    virtual ~Person() = 0;
+    virtual ~Person() = default;
 
     const string& getName() const { return name; }
     int getId() const { return id; }

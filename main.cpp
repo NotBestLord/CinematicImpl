@@ -49,15 +49,15 @@ static double readPositiveDouble(string prompt) {
 }
 
 static void readLine(string prompt, string& buffer, int bufferSize) {
-    cout << prompt;
-    char bufferArr[bufferSize];
-    cin.getline(bufferArr, bufferSize);
-    buffer = string(bufferArr);
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
-        buffer[0] = '\0';
-    }
+	cout << prompt;
+	vector<char> bufferArr(bufferSize);
+	cin.getline(bufferArr.data(), bufferSize);
+	buffer = string(bufferArr.data());
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+		buffer.clear();
+	}
 }
 
 static Date readDate(string label) {
@@ -93,10 +93,10 @@ static void addHall(Cinema& cinema) {
     int hallNumber = readInt("Enter hall number: ");
 
     cout << "Choose hall type:" << endl
-              << "  1. Regular Hall" << endl
-              << "  2. VIP Hall" << endl
-              << "  3. 3D Hall" << endl
-              << "  4. 3D VIP Hall" << endl;
+              << "  1. Regular IHall" << endl
+              << "  2. VIP IHall" << endl
+              << "  3. 3D IHall" << endl
+              << "  4. 3D VIP IHall" << endl;
     int type = readIntInRange("Type: ", 1, 4);
 
     HallBuilder* builder;
@@ -120,12 +120,12 @@ static void addHall(Cinema& cinema) {
         dynamic_cast<Hall3DBuilder*>(builder)->setGlassesCount(glasses);
     }
 
-    Hall* hall = builder->build();
+    IHall* hall = builder->build();
     delete builder;
     
     try {
         cinema += hall;
-        cout << "Hall added successfully." << endl;
+        cout << "IHall added successfully." << endl;
     } catch (...) {
         delete hall;
         throw;
@@ -356,7 +356,7 @@ static void checkHallEmpty(const Cinema& cinema) {
     cinema.printAllHalls();
     int idx = readIntInRange("Choose hall index: ", 0, cinema.getNumHalls() - 1);
 
-    const Hall* hall = cinema.getHallByIndex(idx);
+    const IHall* hall = cinema.getHallByIndex(idx);
     if (!(*hall)) {
         cout << "The hall is completely empty (all seats available)." << endl;
     } else {

@@ -5,7 +5,7 @@
 
 #include "Employee.h"
 #include "Guest.h"
-#include "Hall.h"
+#include "IHall.h"
 #include "Movie.h"
 #include "Shift.h"
 
@@ -24,7 +24,7 @@ public:
 private:
     vector<Employee*> employees;
     vector<Guest*> guests;
-    vector<Hall*> halls;
+    vector<IHall*> halls;
     vector<const Movie*> movies;
     vector<const Shift*> shifts;
 
@@ -35,8 +35,8 @@ public:
     Employee* getEmployeeByIndex(size_t i);
     const Guest* getGuestByIndex(size_t i) const;
     Guest* getGuestByIndex(size_t i);
-    const Hall* getHallByIndex(size_t i) const;
-    Hall* getHallByIndex(size_t i);
+    const IHall* getHallByIndex(size_t i) const;
+    IHall* getHallByIndex(size_t i);
     const Movie* getMovieByIndex(size_t i) const;
     const Shift* getShiftByIndex(size_t i) const;
 
@@ -45,11 +45,17 @@ public:
 
     const Cinema& operator+=(Employee* e);
 	const Cinema& operator+=(Guest* g);
-	const Cinema& operator+=(Hall* h);
+	const Cinema& operator+=(IHall* h);
 	const Cinema& operator+=(const Movie* m);
 	const Cinema& operator+=(const Shift* s);
 
 	const Cinema& operator-=(int guestId);
+
+	size_t getNumEmployees() const { return employees.size(); }
+	size_t getNumGuests() const { return guests.size(); }
+	size_t getNumHalls() const { return halls.size(); }
+	size_t getNumMovies() const { return movies.size(); }
+	size_t getNumShifts() const { return shifts.size(); }
 
     void printAllGuests() const;
     void printAllEmployees() const;

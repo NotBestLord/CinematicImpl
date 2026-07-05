@@ -4,7 +4,7 @@ Cinema::~Cinema()
 {
 	for (Employee* employee : employees) { delete employee;	}
 	for (Guest* guest : guests) { delete guest;	}
-	for (Hall* hall : halls) { delete hall;	}
+	for (IHall* hall : halls) { delete hall;	}
 	for (const Movie* movie : movies) { delete movie;	}
 	for (const Shift* shift : shifts) { delete shift;	}
 }
@@ -37,14 +37,14 @@ Guest* Cinema::getGuestByIndex(size_t i)
 	return nullptr;
 }
 
-const Hall* Cinema::getHallByIndex(size_t i) const
+const IHall* Cinema::getHallByIndex(size_t i) const
 {
 	if (i <= halls.size()) return halls[i];
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
-Hall* Cinema::getHallByIndex(size_t i)
+IHall* Cinema::getHallByIndex(size_t i)
 {
 	if (i <= halls.size()) return halls[i];
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
@@ -97,7 +97,7 @@ const Cinema& Cinema::operator+=(Guest* g)
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Hall* h)
+const Cinema& Cinema::operator+=(IHall* h)
 {
 	halls.push_back(h);
 	return *this;
