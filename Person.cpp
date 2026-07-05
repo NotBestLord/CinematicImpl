@@ -1,5 +1,4 @@
 #include "Person.h"
-#include <cstring>
 
 Person::Person(const string& name, int id, const Date& birthDate) : 
     name(name), id(id), birthDate(birthDate) {}
