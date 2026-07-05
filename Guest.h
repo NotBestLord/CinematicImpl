@@ -13,7 +13,7 @@ private:
     int numTickets;
 
 public:
-    Guest(std::string name, int id, const Date& birthDate, int visitCount = 0);
+    Guest(const string& name, int id, const Date& birthDate, int visitCount = 0);
     virtual ~Guest() override;
 
     int getVisitCount() const { return visitCount; }

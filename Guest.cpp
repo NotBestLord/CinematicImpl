@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Guest::Guest(std::string name, int id, const Date& birthDate, int visitCount) : 
+Guest::Guest(const string& name, int id, const Date& birthDate, int visitCount) : 
 	Person(name, id, birthDate), visitCount(visitCount), numTickets(0)
 {
 }
@@ -28,7 +28,7 @@ void Guest::addTicket(Ticket* t)
 	numTickets++;
 }
 
-void Guest::toOs(std::ostream& os) const
+void Guest::toOs(ostream& os) const
 {
 	os << ", " << "Visit Count: " << visitCount;
 	os << numTickets << " owned tickets";

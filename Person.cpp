@@ -1,11 +1,9 @@
 #include "Person.h"
 
-using namespace std;
-
-Person::Person(string name, int id, const Date& birthDate) : 
+Person::Person(const string& name, int id, const Date& birthDate) : 
     name(name), id(id), birthDate(birthDate) {}
 
-void Person::setName(string newName)
+void Person::setName(const string& newName)
 {
     name = newName;
 }
