@@ -286,6 +286,7 @@ const Cinema& Cinema::operator-=(int guestId)
 			{
 				delete guests[i];
 				numGuests--;
+				found = true;
 			}
 		}
 		else
