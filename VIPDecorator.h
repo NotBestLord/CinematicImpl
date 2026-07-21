@@ -1,8 +1,6 @@
 #ifndef VIP_DECORATOR_H
 #define VIP_DECORATOR_H
 
-#include <memory>
-
 #include "HallDecorator.h"
 
 class VIPDecorator : public HallDecorator {

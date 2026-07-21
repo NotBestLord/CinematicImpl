@@ -1,8 +1,6 @@
 #ifndef GUEST_H
 #define GUEST_H
 
-#include <memory>
-
 #include "Linkedlist.h"
 #include "Person.h"
 #include "Ticket.h"

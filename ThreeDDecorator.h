@@ -1,8 +1,6 @@
 #ifndef THREE_D_DECORATOR_H
 #define THREE_D_DECORATOR_H
 
-#include <memory>
-
 #include "HallDecorator.h"
 
 class ThreeDDecorator : public HallDecorator {
