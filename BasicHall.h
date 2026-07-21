@@ -1,4 +1,3 @@
-// BasicHall.h
 #ifndef BASIC_HALL_H
 #define BASIC_HALL_H
 
@@ -26,7 +25,7 @@ public:
 
 	bool operator!() const override;
 
-	void toOs(ostream& os) const override {}   // nothing extra for a plain hall
+	void toOs(ostream& os) const override {}
 };
 
 #endif

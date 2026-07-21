@@ -1,20 +1,21 @@
 #ifndef GUEST_H
 #define GUEST_H
 
+#include <memory>
+
 #include "Linkedlist.h"
 #include "Person.h"
-
-class Ticket;
+#include "Ticket.h"
 
 class Guest : public Person {
 private:
     int visitCount;
-    LinkedList<Ticket*> tickets;
+    LinkedList<std::unique_ptr<Ticket>> tickets;
     int numTickets;
 
 public:
     Guest(const string& name, int id, const Date& birthDate, int visitCount = 0);
-    virtual ~Guest() override;
+    ~Guest() override = default;
 
     int getVisitCount() const { return visitCount; }
     int getNumTickets() const { return numTickets; }
@@ -23,7 +24,7 @@ public:
     void setVisitCount(int v) { visitCount = v; }
     void incrementVisitCount() { visitCount++; }
 
-    void addTicket(Ticket* t);
+    void addTicket(std::unique_ptr<Ticket> t);
 
 	void toOs(std::ostream& os) const override;
 };

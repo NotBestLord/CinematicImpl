@@ -2,7 +2,6 @@
 #define CINEMA_H
 
 #include <vector>
-
 #include "Employee.h"
 #include "Guest.h"
 #include "IHall.h"
@@ -19,14 +18,14 @@ public:
 		static Cinema theCinema;
 		return theCinema;
 	}
-	~Cinema();
+	~Cinema() = default;
 
 private:
-    vector<Employee*> employees;
-    vector<Guest*> guests;
-    vector<IHall*> halls;
-    vector<const Movie*> movies;
-    vector<const Shift*> shifts;
+    vector<unique_ptr<Employee>> employees;
+    vector<unique_ptr<Guest>> guests;
+    vector<unique_ptr<IHall>> halls;
+    vector<unique_ptr<const Movie>> movies;
+    vector<unique_ptr<const Shift>> shifts;
 
 	Cinema() = default;
 
@@ -43,11 +42,11 @@ public:
     Guest* findGuestById(int id) const;
     Employee* findEmployeeById(int id) const;
 
-    const Cinema& operator+=(Employee* e);
-	const Cinema& operator+=(Guest* g);
-	const Cinema& operator+=(IHall* h);
-	const Cinema& operator+=(const Movie* m);
-	const Cinema& operator+=(const Shift* s);
+    const Cinema& operator+=(unique_ptr<Employee> e);
+	const Cinema& operator+=(unique_ptr<Guest> g);
+	const Cinema& operator+=(unique_ptr<IHall> h);
+	const Cinema& operator+=(unique_ptr<const Movie> m);
+	const Cinema& operator+=(unique_ptr<const Shift> s);
 
 	const Cinema& operator-=(int guestId);
 

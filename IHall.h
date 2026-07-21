@@ -1,4 +1,3 @@
-// IHall.h
 #ifndef IHALL_H
 #define IHALL_H
 

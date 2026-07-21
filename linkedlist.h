@@ -11,102 +11,89 @@ class LinkedList {
 private:
 	struct Node {
 		T val;
-		Node* next;
-		Node(const T& v) : val(v), next(nullptr) {}
+		unique_ptr<Node> next;
+		explicit Node(T v) : val(std::move(v)), next(nullptr) {}
 	};
 
-	Node* head;
+	unique_ptr<Node> head;
+
+	void clear() {
+		while (head) {
+			head = std::move(head->next);
+		}
+	}
 
 public:
 	LinkedList() : head(nullptr) {}
 
-	LinkedList(const T& val) : head(new Node(val)) {}
+	explicit LinkedList(T val) : head(make_unique<Node>(std::move(val))) {}
 
 	LinkedList(const LinkedList& other) : head(nullptr) {
 		*this = other;
 	}
-	LinkedList(LinkedList&& other) : head(other.head) {
-		other.head = nullptr;
-	}
+	LinkedList(LinkedList&& other) noexcept : head(std::move(other.head)) {}
 
-	const LinkedList& operator=(const LinkedList<T>& other) {
+	LinkedList& operator=(const LinkedList<T>& other) {
 		if (this == &other) return *this;
 
-		Node* current = head;
-		while (current != nullptr) {
-			Node* nextNode = current->next;
-			delete current;
-			current = nextNode;
-		}
-		head = nullptr;
+		clear();
 
 		if (other.head != nullptr) {
-			head = new Node(other.head->val);
-			Node* currentNew = head;
-			Node* currentOther = other.head->next;
+			head = make_unique<Node>(other.head->val);
+			Node* currentNew = head.get();
+			Node* currentOther = other.head->next.get();
 
 			while (currentOther != nullptr) {
-				currentNew->next = new Node(currentOther->val);
-				currentNew = currentNew->next;
-				currentOther = currentOther->next;
+				currentNew->next = make_unique<Node>(currentOther->val);
+				currentNew = currentNew->next.get();
+				currentOther = currentOther->next.get();
 			}
 		}
 		return *this;
 	}
 
-	const LinkedList& operator=(LinkedList&& other) {
+	LinkedList& operator=(LinkedList&& other) noexcept {
 		if (this != &other) {
-			Node* current = head;
-			while (current != nullptr) {
-				Node* nextNode = current->next;
-				delete current;
-				current = nextNode;
-			}
-
-			head = other.head;
-			other.head = nullptr;
+			clear();
+			head = std::move(other.head);
 		}
 		return *this;
 	}
 
 	~LinkedList() {
-		Node* current = head;
-		while (current != nullptr) {
-			Node* nextNode = current->next;
-			delete current;
-			current = nextNode;
-		}
+		clear();
 	}
 
 	int length() const {
 		int len = 0;
-		Node* node = head;
+		Node* node = head.get();
 		while (node != nullptr) {
-			node = node->next;
+			node = node->next.get();
 			len++;
 		}
 		return len;
 	}
 
-	LinkedList& operator+=(const T& val) {
+	LinkedList& operator+=(T val) {
+		auto newNode = make_unique<Node>(std::move(val));
 		if (head == nullptr) {
-			head = new Node(val);
+			head = std::move(newNode);
 		}
 		else {
-			Node* addTo = head;
+			Node* addTo = head.get();
 			while (addTo->next != nullptr) {
-				addTo = addTo->next;
+				addTo = addTo->next.get();
 			}
-			addTo->next = new Node(val);
+			addTo->next = std::move(newNode);
 		}
 		return *this;
 	}
 
 	const T& operator[](int index) const {
 		assert(index >= 0 && "Index out of bounds!");
-		Node* node = head;
+		Node* node = head.get();
 		while (index > 0 && node != nullptr) {
-			node = node->next;
+			node = node->next.get();
 			index--;
 		}
 		assert(node != nullptr && "Index out of bounds!");
@@ -117,31 +104,27 @@ public:
 		if (head == nullptr) return *this;
 
 		if (head->val == val) {
-			Node* temp = head;
-			head = head->next;
-			delete temp;
+			head = std::move(head->next);
 			return *this;
 		}
 
-		Node* current = head;
+		Node* current = head.get();
 		while (current->next != nullptr && current->next->val != val) {
-			current = current->next;
+			current = current->next.get();
 		}
 
 		if (current->next != nullptr) {
-			Node* temp = current->next;
-			current->next = current->next->next;
-			delete temp;
+			current->next = std::move(current->next->next);
 		}
 
 		return *this;
 	}
 
 	friend ostream& operator<<(ostream& os, const LinkedList<T>& list) {
-		Node* current = list.head;
+		Node* current = list.head.get();
 		while (current != nullptr) {
 			os << current->val << (current->next != nullptr ? ", " : "");
-			current = current->next;
+			current = current->next.get();
 		}
 		return os;
 	}

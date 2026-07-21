@@ -1,5 +1,4 @@
 #include "Reviewer.h"
-#include <cstring>
 
 Reviewer::Reviewer(const string& name, int id, const Date& birthDate, const string& publicationName, int visitCount) :
     Guest(name, id, birthDate, visitCount), publicationName(publicationName) {}

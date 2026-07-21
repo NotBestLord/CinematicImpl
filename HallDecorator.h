@@ -5,12 +5,12 @@
 
 class HallDecorator : public IHall {
 protected:
-	IHall* wrappee;
+	unique_ptr<IHall> wrappee;
 
-	explicit HallDecorator(IHall* wrappee) : wrappee(wrappee) {}
+	explicit HallDecorator(unique_ptr<IHall> wrappee) : wrappee(std::move(wrappee)) {}
 
 public:
-	~HallDecorator() override { delete wrappee; }
+	~HallDecorator() override = default;
 
 	int getHallNumber() const override { return wrappee->getHallNumber(); }
 	void setHallNumber(int num) override { wrappee->setHallNumber(num); }

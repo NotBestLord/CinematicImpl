@@ -1,13 +1,15 @@
 #ifndef THREE_D_DECORATOR_H
 #define THREE_D_DECORATOR_H
 
+#include <memory>
+
 #include "HallDecorator.h"
 
 class ThreeDDecorator : public HallDecorator {
 	int glassesCount;
 public:
-	ThreeDDecorator(IHall* wrappee, int glassesCount)
-		: HallDecorator(wrappee), glassesCount(glassesCount) {
+	ThreeDDecorator(unique_ptr<IHall> wrappee, int glassesCount)
+		: HallDecorator(std::move(wrappee)), glassesCount(glassesCount) {
 	}
 
 	int getGlassesCount() const { return glassesCount; }

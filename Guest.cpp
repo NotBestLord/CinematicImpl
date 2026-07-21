@@ -9,22 +9,14 @@ Guest::Guest(const string& name, int id, const Date& birthDate, int visitCount) 
 {
 }
 
-Guest::~Guest()
-{
-	for (int i = 0; i < numTickets; i++)
-	{
-		delete tickets[i];
-	}
-}
-
 const Ticket* Guest::getTicket(int index) const
 {
-	return tickets[index];
+	return tickets[index].get();
 }
 
-void Guest::addTicket(Ticket* t)
+void Guest::addTicket(unique_ptr<Ticket> t)
 {
-	tickets += t;
+	tickets += std::move(t);
 	numTickets++;
 }
 

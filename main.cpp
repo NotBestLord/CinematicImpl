@@ -1,6 +1,4 @@
 #include <iostream>
-#include <climits>
-
 #include "Cinema.h"
 #include "Customer.h"
 #include "Reviewer.h"
@@ -99,12 +97,12 @@ static void addHall(Cinema& cinema) {
               << "  4. 3D VIP IHall" << endl;
     int type = readIntInRange("Type: ", 1, 4);
 
-    HallBuilder* builder;
+    unique_ptr<HallBuilder> builder;
     switch (type) {
-        case 1: builder = new HallBuilder(*movie);       break;
-        case 2: builder = new VIPHallBuilder(*movie);    break;
-        case 3: builder = new Hall3DBuilder(*movie);     break;
-        case 4: builder = new Hall3DVIPBuilder(*movie);  break;
+        case 1: builder = make_unique<HallBuilder>(*movie);       break;
+        case 2: builder = make_unique<VIPHallBuilder>(*movie);    break;
+        case 3: builder = make_unique<Hall3DBuilder>(*movie);     break;
+        case 4: builder = make_unique<Hall3DVIPBuilder>(*movie);  break;
     }
 
     builder->setHallNumber(hallNumber);
@@ -112,24 +110,18 @@ static void addHall(Cinema& cinema) {
     if (type == 2 || type == 4)
     {
         int waiters = readIntInRange("Waiters count: ", 0, 50);
-        dynamic_cast<VIPHallBuilder*>(builder)->setWaitersCount(waiters);
+        dynamic_cast<VIPHallBuilder*>(builder.get())->setWaitersCount(waiters);
     }
     if (type == 3 || type == 4)
     {
         int glasses = readIntInRange("Glasses count: ", 0, 200);
-        dynamic_cast<Hall3DBuilder*>(builder)->setGlassesCount(glasses);
+        dynamic_cast<Hall3DBuilder*>(builder.get())->setGlassesCount(glasses);
     }
 
-    IHall* hall = builder->build();
-    delete builder;
-    
-    try {
-        cinema += hall;
-        cout << "IHall added successfully." << endl;
-    } catch (...) {
-        delete hall;
-        throw;
-    }
+    unique_ptr<IHall> hall = builder->build();
+
+    cinema += std::move(hall);
+    cout << "IHall added successfully." << endl;
 }
 
 static void addMovie(Cinema& cinema) {
@@ -142,14 +134,9 @@ static void addMovie(Cinema& cinema) {
     int length = readIntInRange("Movie length (minutes): ", 1, 600);
     bool is3D = readYesNo("Is the movie available in 3D? (y/n): ");
 
-    Movie* movie = new Movie(title, premiere, length, is3D);
-    try {
-        cinema += movie;
-        cout << "Movie added successfully." << endl;
-    } catch (...) {
-        delete movie;
-        throw;
-    }
+    auto movie = make_unique<Movie>(title, premiere, length, is3D);
+    cinema += std::move(movie);
+    cout << "Movie added successfully." << endl;
 }
 
 static void addEmployee(Cinema& cinema) {
@@ -161,14 +148,9 @@ static void addEmployee(Cinema& cinema) {
     Date birth = readDate("birth date");
     double salary = readPositiveDouble("Base salary: ");
 
-    Employee* emp = new Employee(name, id, birth, salary);
-    try {
-        cinema += emp;
-        cout << "Employee registered successfully." << endl;
-    } catch (...) {
-        delete emp;
-        throw;
-    }
+    auto emp = make_unique<Employee>(name, id, birth, salary);
+    cinema += std::move(emp);
+    cout << "Employee registered successfully." << endl;
 }
 
 static void addGuest(Cinema& cinema) {
@@ -184,23 +166,18 @@ static void addGuest(Cinema& cinema) {
     int id = readInt("ID number: ");
     Date date = readDate("birth date");
 
-    Guest* guest = nullptr;
+    unique_ptr<Guest> guest;
     if (type == 1) {
         int points = readIntInRange("Initial club points: ", 0, 100000);
-        guest = new Customer(name, id, date, points);
+        guest = make_unique<Customer>(name, id, date, points);
     } else {
         string pub;
         readLine("Publication name: ", pub, MAX_INPUT_LEN);
-        guest = new Reviewer(name, id, date, pub);
+        guest = make_unique<Reviewer>(name, id, date, pub);
     }
 
-    try {
-        cinema += guest;
-        cout << "Guest registered successfully." << endl;
-    } catch (...) {
-        delete guest;
-        throw;
-    }
+    cinema += std::move(guest);
+    cout << "Guest registered successfully." << endl;
 }
 
 static void sellTicket(Cinema& cinema) {
@@ -230,22 +207,17 @@ static void sellTicket(Cinema& cinema) {
               << "  2. VIP" << endl;
     int type = readIntInRange("Type: ", 1, 2);
 
-    Ticket* ticket = nullptr;
+    unique_ptr<Ticket> ticket;
     if (type == 1) {
-        ticket = new Ticket(*movie, is3D);
+        ticket = make_unique<Ticket>(*movie, is3D);
     } else {
         bool meal = readYesNo("Include meal? (y/n): ");
-        ticket = new VIPTicket(*movie, is3D, meal);
+        ticket = make_unique<VIPTicket>(*movie, is3D, meal);
     }
 
-    try {
-        guest->addTicket(ticket);
-        cout << "Ticket sold. Final price: "
-                  << ticket->calcFinalPrice() << endl;
-    } catch (...) {
-        delete ticket;
-        throw;
-    }
+    double finalPrice = ticket->calcFinalPrice();
+    guest->addTicket(std::move(ticket));
+    cout << "Ticket sold. Final price: " << finalPrice << endl;
 }
 
 static void printMovieDetails(const Cinema& cinema) {
@@ -278,14 +250,9 @@ static void addEmployeeToShift(Cinema& cinema) {
     int hours = readIntInRange("Shift length (hours): ", 1, 24);
     Date shiftDate = readDate("shift date");
 
-    Shift* shift = new Shift(*emp, hours, shiftDate);
-    try {
-        cinema += shift;
-        cout << "Shift created successfully." << endl;
-    } catch (...) {
-        delete shift;
-        throw;
-    }
+    auto shift = make_unique<Shift>(*emp, hours, shiftDate);
+    cinema += std::move(shift);
+    cout << "Shift created successfully." << endl;
 }
 
 static void promoteEmployee(Cinema& cinema) {

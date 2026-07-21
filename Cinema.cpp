@@ -1,75 +1,66 @@
 #include "Cinema.h"
 
-Cinema::~Cinema()
-{
-	for (Employee* employee : employees) { delete employee;	}
-	for (Guest* guest : guests) { delete guest;	}
-	for (IHall* hall : halls) { delete hall;	}
-	for (const Movie* movie : movies) { delete movie;	}
-	for (const Shift* shift : shifts) { delete shift;	}
-}
-
 const Employee* Cinema::getEmployeeByIndex(size_t i) const
 {
-	if (i <= employees.size()) return employees[i];
+	if (i <= employees.size()) return employees[i].get();
 	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 Employee* Cinema::getEmployeeByIndex(size_t i)
 {
-	if (i <= employees.size()) return employees[i];
+	if (i <= employees.size()) return employees[i].get();
 	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 const Guest* Cinema::getGuestByIndex(size_t i) const
 {
-	if (i <= guests.size()) return guests[i];
+	if (i <= guests.size()) return guests[i].get();
 	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 Guest* Cinema::getGuestByIndex(size_t i)
 {
-	if (i <= guests.size()) return guests[i];
+	if (i <= guests.size()) return guests[i].get();
 	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 const IHall* Cinema::getHallByIndex(size_t i) const
 {
-	if (i <= halls.size()) return halls[i];
+	if (i <= halls.size()) return halls[i].get();
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 IHall* Cinema::getHallByIndex(size_t i)
 {
-	if (i <= halls.size()) return halls[i];
+	if (i <= halls.size()) return halls[i].get();
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 const Movie* Cinema::getMovieByIndex(size_t i) const
 {
-	if (i <= movies.size()) return movies[i];
+	if (i <= movies.size()) return movies[i].get();
 	cout << "Index should be between 0 and " << movies.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 const Shift* Cinema::getShiftByIndex(size_t i) const
 {
-	if (i <= shifts.size()) return shifts[i];
+	if (i <= shifts.size()) return shifts[i].get();
 	cout << "Index should be between 0 and " << shifts.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
 
 Guest* Cinema::findGuestById(int id) const
 {
-	for (Guest* guest : guests)
+	for (const auto& guest : guests)
 	{
-		if (guest->getId() == id) return guest;
+		if (guest->getId() == id) return guest.get();
 	}
 	cout << "Guest with given ID doesn't exist." << endl;
 	return nullptr;
@@ -77,41 +68,41 @@ Guest* Cinema::findGuestById(int id) const
 
 Employee* Cinema::findEmployeeById(int id) const
 {
-	for (Employee* employee : employees)
+	for (const auto& employee : employees)
 	{
-		if (employee->getId() == id) return employee;
+		if (employee->getId() == id) return employee.get();
 	}
 	cout << "Employee with given ID doesn't exist." << endl;
 	return nullptr;
 }
 
-const Cinema& Cinema::operator+=(Employee* e)
+const Cinema& Cinema::operator+=(unique_ptr<Employee> e)
 {
-	employees.push_back(e);
+	employees.push_back(std::move(e));
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Guest* g)
+const Cinema& Cinema::operator+=(unique_ptr<Guest> g)
 {
-	guests.push_back(g);
+	guests.push_back(std::move(g));
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(IHall* h)
+const Cinema& Cinema::operator+=(unique_ptr<IHall> h)
 {
-	halls.push_back(h);
+	halls.push_back(std::move(h));
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(const Movie* m)
+const Cinema& Cinema::operator+=(unique_ptr<const Movie> m)
 {
-	movies.push_back(m);
+	movies.push_back(std::move(m));
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(const Shift* s)
+const Cinema& Cinema::operator+=(unique_ptr<const Shift> s)
 {
-	shifts.push_back(s);
+	shifts.push_back(std::move(s));
 	return *this;
 }
 
@@ -121,7 +112,6 @@ const Cinema& Cinema::operator-=(int guestId)
 	{
 		if ((*it)->getId() == guestId)
 		{
-			delete* it;
 			guests.erase(it);
 			return *this;
 		}

@@ -9,7 +9,7 @@ class HallBuilderAbstract
 {
 public:
     virtual ~HallBuilderAbstract() = default;
-    virtual IHall* build() = 0;
+    virtual unique_ptr<IHall> build() = 0;
 };
 
 class HallBuilder : public HallBuilderAbstract
@@ -21,7 +21,7 @@ public:
     HallBuilder(const Movie& currentMovie) : hallNumber(0), currentMovie(currentMovie) {}
     ~HallBuilder() override = default;
     void setHallNumber(int hallNumber) { this->hallNumber = hallNumber; }
-    IHall* build() override { return new BasicHall(hallNumber, currentMovie); }
+    unique_ptr<IHall> build() override { return make_unique<BasicHall>(hallNumber, currentMovie); }
 };
 
 class VIPHallBuilder : virtual public HallBuilder
@@ -32,9 +32,9 @@ public:
     VIPHallBuilder(const Movie& currentMovie) : HallBuilder(currentMovie), waitersCount(0) {}
     ~VIPHallBuilder() override = default;
     void setWaitersCount(int waitersCount) { this->waitersCount = waitersCount; }
-    IHall* build() override
+    unique_ptr<IHall> build() override
     {
-	    return new VIPDecorator(new BasicHall(hallNumber, currentMovie), waitersCount);
+	    return make_unique<VIPDecorator>(make_unique<BasicHall>(hallNumber, currentMovie), waitersCount);
     }
 };
 
@@ -46,9 +46,9 @@ public:
     Hall3DBuilder(const Movie& currentMovie) : HallBuilder(currentMovie), glassesCount(0) {}
     ~Hall3DBuilder() override = default;
     void setGlassesCount(int glassesCount) { this->glassesCount = glassesCount; }
-    IHall* build() override
+    unique_ptr<IHall> build() override
     {
-	    return new ThreeDDecorator(new BasicHall(hallNumber, currentMovie), glassesCount);
+	    return make_unique<ThreeDDecorator>(make_unique<BasicHall>(hallNumber, currentMovie), glassesCount);
     }
 };
 
@@ -58,9 +58,11 @@ public:
     Hall3DVIPBuilder(const Movie& currentMovie) : HallBuilder(currentMovie), 
         VIPHallBuilder(currentMovie), Hall3DBuilder(currentMovie) {}
     ~Hall3DVIPBuilder() override = default;
-    IHall* build() override
+    unique_ptr<IHall> build() override
 	{
-    	return new VIPDecorator(new ThreeDDecorator(new BasicHall(hallNumber, currentMovie), glassesCount), waitersCount);
+    	return make_unique<VIPDecorator>(
+    		make_unique<ThreeDDecorator>(make_unique<BasicHall>(hallNumber, currentMovie), glassesCount),
+    		waitersCount);
 	}
 };
 

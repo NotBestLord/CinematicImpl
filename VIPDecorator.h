@@ -1,13 +1,15 @@
 #ifndef VIP_DECORATOR_H
 #define VIP_DECORATOR_H
 
+#include <memory>
+
 #include "HallDecorator.h"
 
 class VIPDecorator : public HallDecorator {
 	int waitersCount;
 public:
-	VIPDecorator(IHall* wrappee, int waitersCount)
-		: HallDecorator(wrappee), waitersCount(waitersCount) {
+	VIPDecorator(unique_ptr<IHall> wrappee, int waitersCount)
+		: HallDecorator(std::move(wrappee)), waitersCount(waitersCount) {
 	}
 
 	int getWaitersCount() const { return waitersCount; }
