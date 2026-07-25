@@ -2,6 +2,7 @@
 #define CINEMA_H
 
 #include <vector>
+#include <memory>
 #include "Employee.h"
 #include "Guest.h"
 #include "IHall.h"

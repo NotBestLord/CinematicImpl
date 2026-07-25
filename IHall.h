@@ -29,7 +29,7 @@ public:
 
 inline ostream& operator<<(ostream& os, const IHall& h)
 {
-	os << "[" << h.getHallNumber() << ", " << h.getCurrentMovie();
+	os << "[id: " << h.getHallNumber() << ", movie: " << h.getCurrentMovie();
 	h.toOs(os);
 	os << "]";
 	return os;

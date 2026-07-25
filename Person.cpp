@@ -10,7 +10,7 @@ void Person::setName(const string& newName)
 
 ostream& operator<<(ostream& os, const Person& p)
 {
-    os << "[" << p.name << ", " << p.id << ", " << p.birthDate;
+    os << "[" << p.name << ", id: " << p.id << ", " << p.birthDate;
     p.toOs(os);
     os << "]";
     return os;

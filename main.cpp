@@ -289,6 +289,10 @@ static void compareTickets(const Cinema& cinema) {
         cout << "This guest has no tickets." << endl;
         return;
     }
+    for(int i=0;i<g1->getNumTickets();i++)
+    {
+        cout << i << ". " << g1->getTicket(i)->getMovie().getTitle() << endl;
+    }
     int t1Idx = readIntInRange("First ticket index: ", 0, g1->getNumTickets() - 1);
     const Ticket* t1 = g1->getTicket(t1Idx);
 
@@ -297,6 +301,10 @@ static void compareTickets(const Cinema& cinema) {
     if (g2->getNumTickets() == 0) {
         cout << "This guest has no tickets." << endl;
         return;
+    }
+    for(int i=0;i<g2->getNumTickets();i++)
+    {
+        cout << i << ". " << g2->getTicket(i)->getMovie().getTitle() << endl;
     }
     int t2Idx = readIntInRange("Second ticket index: ", 0, g2->getNumTickets() - 1);
     const Ticket* t2 = g2->getTicket(t2Idx);

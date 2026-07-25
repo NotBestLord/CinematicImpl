@@ -1,6 +1,7 @@
 #ifndef HALL_DECORATOR_H
 #define HALL_DECORATOR_H
 
+#include <memory>
 #include "IHall.h"
 
 class HallDecorator : public IHall {
