@@ -394,8 +394,10 @@ MSBuild_Logs/
 # Local History for Visual Studio
 **/.localhistory/
 
-# Visual Studio History (VSHistory) files
+# Visual Studio
 .vshistory/
+*.vcxproj*
+*.sln
 
 # BeatPulse healthcheck temp database
 healthchecksdb
