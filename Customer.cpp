@@ -6,5 +6,5 @@ Customer::Customer(const string& name, int id, const Date& birthDate, int clubPo
 
 void Customer::toOs(ostream& os) const
 {
-	os << ", " << "Club Points: " << clubPoints;
+	os << ", Club Points: " << clubPoints;
 }

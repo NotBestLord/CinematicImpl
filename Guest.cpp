@@ -22,6 +22,6 @@ void Guest::addTicket(unique_ptr<Ticket> t)
 
 void Guest::toOs(ostream& os) const
 {
-	os << ", " << "Visit Count: " << visitCount;
+	os << ", Visit Count: " << visitCount;
 	os << numTickets << " owned tickets";
 }

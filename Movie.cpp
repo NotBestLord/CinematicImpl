@@ -12,7 +12,7 @@ void Movie::setTitle(const string& newTitle)
 
 ostream& operator<<(ostream& os, const Movie& m)
 {
-    os << "[" << m.title << ", " << m.premiereDate << ", " << m.lengthMinutes << " minutes";
+    os << "[" << m.title << ", Premiere: " << m.premiereDate << ", " << m.lengthMinutes << " minutes";
     if (m.is3D)
     {
         os << ", 3D";

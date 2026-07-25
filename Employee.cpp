@@ -12,5 +12,5 @@ const Employee& Employee::operator++()
 
 void Employee::toOs(ostream& os) const
 {
-	os << ", " << "Salary: " << salary;
+	os << ", Salary: " << salary;
 }

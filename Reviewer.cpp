@@ -5,5 +5,5 @@ Reviewer::Reviewer(const string& name, int id, const Date& birthDate, const stri
 
 void Reviewer::toOs(std::ostream& os) const
 {
-    os << ", " << publicationName << ", " << getVisitCount() << " | Reviewer";
+    os << ", Publication: " << publicationName << ", Visit count: " << getVisitCount() << " | Reviewer";
 }
