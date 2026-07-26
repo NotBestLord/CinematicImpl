@@ -165,7 +165,6 @@ static void addEmployee(Cinema& cinema) {
         cinema += emp;
         cout << "Employee registered successfully." << endl;
     } catch (...) {
-        delete emp;
         throw;
     }
 }

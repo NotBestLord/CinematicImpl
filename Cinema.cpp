@@ -213,38 +213,38 @@ Employee* Cinema::findEmployeeById(int id) const
 	throw invalid_argument("Employee with given ID doesn't exist.");
 }
 
-const Cinema& Cinema::operator+=(Employee& e)
+const Cinema& Cinema::operator+=(Employee* e)
 {
 	if (numEmployees == employeesCapacity) resizeEmployees();
-	employees[numEmployees++] = &e;
+	employees[numEmployees++] = e;
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Guest& g)
+const Cinema& Cinema::operator+=(Guest* g)
 {
 	if (numGuests == guestsCapacity) resizeGuests();
-	guests[numGuests++] = &g;
+	guests[numGuests++] = g;
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Hall& h)
+const Cinema& Cinema::operator+=(Hall* h)
 {
 	if (numHalls == hallsCapacity) resizeHalls();
-	halls[numHalls++] = &h;
+	halls[numHalls++] = h;
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Movie& m)
+const Cinema& Cinema::operator+=(Movie* m)
 {
 	if (numMovies == moviesCapacity) resizeMovies();
-	movies[numMovies++] = &m;
+	movies[numMovies++] = m;
 	return *this;
 }
 
-const Cinema& Cinema::operator+=(Shift& s)
+const Cinema& Cinema::operator+=(Shift* s)
 {
 	if (numShifts == shiftsCapacity) resizeShifts();
-	shifts[numShifts++] = &s;
+	shifts[numShifts++] = s;
 	return *this;
 }
 
@@ -276,7 +276,7 @@ void Cinema::printAllEmployees() const
 {
 	for (int i = 0; i < numEmployees; i++)
 	{
-		cout << i << ". " << employees[i] << endl;
+		cout << i << ". " << *employees[i] << endl;
 	}
 }
 
