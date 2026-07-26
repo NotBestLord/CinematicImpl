@@ -2,14 +2,14 @@
 #define GUEST_H
 
 #include <memory>
-#include "Linkedlist.h"
+#include <list>
 #include "Person.h"
 #include "Ticket.h"
 
 class Guest : public Person {
 private:
     int visitCount;
-    LinkedList<std::unique_ptr<Ticket>> tickets;
+    list<std::unique_ptr<Ticket>> tickets;
     int numTickets;
 
 public:
@@ -23,7 +23,7 @@ public:
     void setVisitCount(int v) { visitCount = v; }
     void incrementVisitCount() { visitCount++; }
 
-    void addTicket(std::unique_ptr<Ticket> t);
+    void addTicket(const Ticket& t);
 
 	void toOs(std::ostream& os) const override;
 };

@@ -1,9 +1,9 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
-
 #include <cassert>
 #include <iostream>
-
+#include <memory>
+#include <utility>
 using namespace std;
 
 template <class T>
@@ -11,40 +11,38 @@ class LinkedList {
 private:
 	struct Node {
 		T val;
-		unique_ptr<Node> next;
+		shared_ptr<Node> next;
 		explicit Node(T v) : val(std::move(v)), next(nullptr) {}
 	};
 
-	unique_ptr<Node> head;
+	shared_ptr<Node> head;
 
 	void clear() {
 		while (head) {
-			head = std::move(head->next);
+			head = head->next;
 		}
 	}
 
 public:
 	LinkedList() : head(nullptr) {}
 
-	explicit LinkedList(T val) : head(make_unique<Node>(std::move(val))) {}
+	explicit LinkedList(T val) : head(make_shared<Node>(std::move(val))) {}
 
 	LinkedList(const LinkedList& other) : head(nullptr) {
 		*this = other;
 	}
+
 	LinkedList(LinkedList&& other) noexcept : head(std::move(other.head)) {}
 
 	LinkedList& operator=(const LinkedList<T>& other) {
 		if (this == &other) return *this;
-
 		clear();
-
 		if (other.head != nullptr) {
-			head = make_unique<Node>(other.head->val);
+			head = make_shared<Node>(other.head->val);
 			Node* currentNew = head.get();
 			Node* currentOther = other.head->next.get();
-
 			while (currentOther != nullptr) {
-				currentNew->next = make_unique<Node>(currentOther->val);
+				currentNew->next = make_shared<Node>(currentOther->val);
 				currentNew = currentNew->next.get();
 				currentOther = currentOther->next.get();
 			}
@@ -75,7 +73,7 @@ public:
 	}
 
 	LinkedList& operator+=(T val) {
-		auto newNode = make_unique<Node>(std::move(val));
+		auto newNode = make_shared<Node>(std::move(val));
 		if (head == nullptr) {
 			head = std::move(newNode);
 		}
@@ -100,23 +98,30 @@ public:
 		return node->val;
 	}
 
+	T& operator[](int index) {
+		assert(index >= 0 && "Index out of bounds!");
+		Node* node = head.get();
+		while (index > 0 && node != nullptr) {
+			node = node->next.get();
+			index--;
+		}
+		assert(node != nullptr && "Index out of bounds!");
+		return node->val;
+	}
+
 	LinkedList& operator-=(const T& val) {
 		if (head == nullptr) return *this;
-
 		if (head->val == val) {
-			head = std::move(head->next);
+			head = head->next;
 			return *this;
 		}
-
 		Node* current = head.get();
 		while (current->next != nullptr && current->next->val != val) {
 			current = current->next.get();
 		}
-
 		if (current->next != nullptr) {
-			current->next = std::move(current->next->next);
+			current->next = current->next->next;
 		}
-
 		return *this;
 	}
 

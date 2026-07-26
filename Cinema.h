@@ -1,11 +1,12 @@
 #ifndef CINEMA_H
 #define CINEMA_H
 
-#include <vector>
+#include <list>
 #include <memory>
 #include "Employee.h"
 #include "Guest.h"
 #include "IHall.h"
+#include "linkedlist.h"
 #include "Movie.h"
 #include "Shift.h"
 
@@ -22,11 +23,11 @@ public:
 	~Cinema() = default;
 
 private:
-    vector<unique_ptr<Employee>> employees;
-    vector<unique_ptr<Guest>> guests;
-    vector<unique_ptr<IHall>> halls;
-    vector<unique_ptr<const Movie>> movies;
-    vector<unique_ptr<const Shift>> shifts;
+    list<unique_ptr<Employee>> employees;
+    list<unique_ptr<Guest>> guests;
+    list<unique_ptr<IHall>> halls;
+    LinkedList<shared_ptr<const Movie>> movies;
+    list<unique_ptr<const Shift>> shifts;
 
 	Cinema() = default;
 
@@ -46,7 +47,7 @@ public:
     const Cinema& operator+=(unique_ptr<Employee> e);
 	const Cinema& operator+=(unique_ptr<Guest> g);
 	const Cinema& operator+=(unique_ptr<IHall> h);
-	const Cinema& operator+=(unique_ptr<const Movie> m);
+	const Cinema& operator+=(shared_ptr<const Movie> m);
 	const Cinema& operator+=(unique_ptr<const Shift> s);
 
 	const Cinema& operator-=(int guestId);
@@ -54,7 +55,7 @@ public:
 	size_t getNumEmployees() const { return employees.size(); }
 	size_t getNumGuests() const { return guests.size(); }
 	size_t getNumHalls() const { return halls.size(); }
-	size_t getNumMovies() const { return movies.size(); }
+	size_t getNumMovies() const { return movies.length(); }
 	size_t getNumShifts() const { return shifts.size(); }
 
     void printAllGuests() const;
