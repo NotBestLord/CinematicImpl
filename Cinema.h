@@ -66,11 +66,11 @@ public:
     Guest* findGuestById(int id) const;
     Employee* findEmployeeById(int id) const;
 
-    const Cinema& operator+=(Employee* e);
-	const Cinema& operator+=(Guest* g);
-	const Cinema& operator+=(Hall* h);
-	const Cinema& operator+=(Movie* m);
-	const Cinema& operator+=(Shift* s);
+    const Cinema& operator+=(Employee& e);
+	const Cinema& operator+=(Guest& g);
+	const Cinema& operator+=(Hall& h);
+	const Cinema& operator+=(Movie& m);
+	const Cinema& operator+=(Shift& s);
 
 	const Cinema& operator-=(int guestId);
 
