@@ -11,6 +11,7 @@ const Employee* Cinema::getEmployeeByIndex(size_t i) const
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(employees.size() - 1) + "]");
 }
+
 Employee* Cinema::getEmployeeByIndex(size_t i)
 {
 	if (i < employees.size())
@@ -21,6 +22,7 @@ Employee* Cinema::getEmployeeByIndex(size_t i)
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(employees.size() - 1) + "]");
 }
+
 const Guest* Cinema::getGuestByIndex(size_t i) const
 {
 	if (i < guests.size())
@@ -31,6 +33,7 @@ const Guest* Cinema::getGuestByIndex(size_t i) const
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(guests.size() - 1) + "]");
 }
+
 Guest* Cinema::getGuestByIndex(size_t i)
 {
 	if (i < guests.size())
@@ -41,6 +44,7 @@ Guest* Cinema::getGuestByIndex(size_t i)
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(guests.size() - 1) + "]");
 }
+
 const IHall* Cinema::getHallByIndex(size_t i) const
 {
 	if (i < halls.size())
@@ -51,6 +55,7 @@ const IHall* Cinema::getHallByIndex(size_t i) const
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(halls.size() - 1) + "]");
 }
+
 IHall* Cinema::getHallByIndex(size_t i)
 {
 	if (i < halls.size())
@@ -61,6 +66,7 @@ IHall* Cinema::getHallByIndex(size_t i)
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(halls.size() - 1) + "]");
 }
+
 const Movie* Cinema::getMovieByIndex(size_t i) const
 {
 	if (i < movies.length())
@@ -69,6 +75,7 @@ const Movie* Cinema::getMovieByIndex(size_t i) const
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(movies.length() - 1) + "]");
 }
+
 const Shift* Cinema::getShiftByIndex(size_t i) const
 {
 	if (i < shifts.size())
@@ -79,6 +86,7 @@ const Shift* Cinema::getShiftByIndex(size_t i) const
 	}
 	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(shifts.size() - 1) + "]");
 }
+
 Guest* Cinema::findGuestById(int id) const
 {
 	for (const auto& guest : guests)
@@ -87,6 +95,7 @@ Guest* Cinema::findGuestById(int id) const
 	}
 	throw invalid_argument("Guest with given ID doesn't exist.");
 }
+
 Employee* Cinema::findEmployeeById(int id) const
 {
 	for (const auto& employee : employees)
@@ -95,31 +104,37 @@ Employee* Cinema::findEmployeeById(int id) const
 	}
 	throw invalid_argument("Employee with given ID doesn't exist.");
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<Employee> e)
 {
 	employees.push_back(std::move(e));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<Guest> g)
 {
 	guests.push_back(std::move(g));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<IHall> h)
 {
 	halls.push_back(std::move(h));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(shared_ptr<const Movie> m)
 {
 	movies += std::move(m);
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<const Shift> s)
 {
 	shifts.push_back(std::move(s));
 	return *this;
 }
+
 const Cinema& Cinema::operator-=(int guestId)
 {
 	for (auto it = guests.begin(); it != guests.end(); ++it)
@@ -132,6 +147,7 @@ const Cinema& Cinema::operator-=(int guestId)
 	}
 	throw invalid_argument("Guest with given ID doesn't exist.");
 }
+
 void Cinema::printAllEmployees() const
 {
 	size_t i = 0;
@@ -140,6 +156,7 @@ void Cinema::printAllEmployees() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllGuests() const
 {
 	size_t i = 0;
@@ -148,6 +165,7 @@ void Cinema::printAllGuests() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllHalls() const
 {
 	size_t i = 0;
@@ -156,6 +174,7 @@ void Cinema::printAllHalls() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllMovies() const
 {
 	for (int i = 0; i < movies.length(); i++)
@@ -163,6 +182,7 @@ void Cinema::printAllMovies() const
 		cout << i << ". " << movies[i]->getTitle() << endl;
 	}
 }
+
 void Cinema::printAllShifts() const
 {
 	size_t i = 0;
