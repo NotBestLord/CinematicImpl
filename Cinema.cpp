@@ -1,5 +1,6 @@
 #include "Cinema.h"
 #include <iterator>
+
 const Employee* Cinema::getEmployeeByIndex(size_t i) const
 {
 	if (i < employees.size())
@@ -11,6 +12,7 @@ const Employee* Cinema::getEmployeeByIndex(size_t i) const
 	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 Employee* Cinema::getEmployeeByIndex(size_t i)
 {
 	if (i < employees.size())
@@ -22,6 +24,7 @@ Employee* Cinema::getEmployeeByIndex(size_t i)
 	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 const Guest* Cinema::getGuestByIndex(size_t i) const
 {
 	if (i < guests.size())
@@ -33,6 +36,7 @@ const Guest* Cinema::getGuestByIndex(size_t i) const
 	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 Guest* Cinema::getGuestByIndex(size_t i)
 {
 	if (i < guests.size())
@@ -44,6 +48,7 @@ Guest* Cinema::getGuestByIndex(size_t i)
 	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 const IHall* Cinema::getHallByIndex(size_t i) const
 {
 	if (i < halls.size())
@@ -55,6 +60,7 @@ const IHall* Cinema::getHallByIndex(size_t i) const
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 IHall* Cinema::getHallByIndex(size_t i)
 {
 	if (i < halls.size())
@@ -66,6 +72,7 @@ IHall* Cinema::getHallByIndex(size_t i)
 	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 const Movie* Cinema::getMovieByIndex(size_t i) const
 {
 	if (i < movies.length())
@@ -75,6 +82,7 @@ const Movie* Cinema::getMovieByIndex(size_t i) const
 	cout << "Index should be between 0 and " << movies.length() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 const Shift* Cinema::getShiftByIndex(size_t i) const
 {
 	if (i < shifts.size())
@@ -86,6 +94,7 @@ const Shift* Cinema::getShiftByIndex(size_t i) const
 	cout << "Index should be between 0 and " << shifts.size() - 1 << ". Operation cancelled." << endl;
 	return nullptr;
 }
+
 Guest* Cinema::findGuestById(int id) const
 {
 	for (const auto& guest : guests)
@@ -95,6 +104,7 @@ Guest* Cinema::findGuestById(int id) const
 	cout << "Guest with given ID doesn't exist." << endl;
 	return nullptr;
 }
+
 Employee* Cinema::findEmployeeById(int id) const
 {
 	for (const auto& employee : employees)
@@ -104,31 +114,37 @@ Employee* Cinema::findEmployeeById(int id) const
 	cout << "Employee with given ID doesn't exist." << endl;
 	return nullptr;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<Employee> e)
 {
 	employees.push_back(std::move(e));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<Guest> g)
 {
 	guests.push_back(std::move(g));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<IHall> h)
 {
 	halls.push_back(std::move(h));
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(shared_ptr<const Movie> m)
 {
 	movies += std::move(m);
 	return *this;
 }
+
 const Cinema& Cinema::operator+=(unique_ptr<const Shift> s)
 {
 	shifts.push_back(std::move(s));
 	return *this;
 }
+
 const Cinema& Cinema::operator-=(int guestId)
 {
 	for (auto it = guests.begin(); it != guests.end(); ++it)
@@ -142,6 +158,7 @@ const Cinema& Cinema::operator-=(int guestId)
 	cout << "Guest with given ID doesn't exist. Operation cancelled." << endl;
 	return *this;
 }
+
 void Cinema::printAllEmployees() const
 {
 	size_t i = 0;
@@ -150,6 +167,7 @@ void Cinema::printAllEmployees() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllGuests() const
 {
 	size_t i = 0;
@@ -158,6 +176,7 @@ void Cinema::printAllGuests() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllHalls() const
 {
 	size_t i = 0;
@@ -166,6 +185,7 @@ void Cinema::printAllHalls() const
 		cout << i << ". " << **it << endl;
 	}
 }
+
 void Cinema::printAllMovies() const
 {
 	for (int i = 0; i < movies.length(); i++)
@@ -173,6 +193,7 @@ void Cinema::printAllMovies() const
 		cout << i << ". " << movies[i]->getTitle() << endl;
 	}
 }
+
 void Cinema::printAllShifts() const
 {
 	size_t i = 0;
