@@ -1,5 +1,6 @@
 #include "Cinema.h"
 #include <iterator>
+
 const Employee* Cinema::getEmployeeByIndex(size_t i) const
 {
 	if (i < employees.size())
@@ -8,8 +9,7 @@ const Employee* Cinema::getEmployeeByIndex(size_t i) const
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(employees.size() - 1) + "]");
 }
 Employee* Cinema::getEmployeeByIndex(size_t i)
 {
@@ -19,8 +19,7 @@ Employee* Cinema::getEmployeeByIndex(size_t i)
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << employees.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(employees.size() - 1) + "]");
 }
 const Guest* Cinema::getGuestByIndex(size_t i) const
 {
@@ -30,8 +29,7 @@ const Guest* Cinema::getGuestByIndex(size_t i) const
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(guests.size() - 1) + "]");
 }
 Guest* Cinema::getGuestByIndex(size_t i)
 {
@@ -41,8 +39,7 @@ Guest* Cinema::getGuestByIndex(size_t i)
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << guests.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(guests.size() - 1) + "]");
 }
 const IHall* Cinema::getHallByIndex(size_t i) const
 {
@@ -52,8 +49,7 @@ const IHall* Cinema::getHallByIndex(size_t i) const
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(halls.size() - 1) + "]");
 }
 IHall* Cinema::getHallByIndex(size_t i)
 {
@@ -63,8 +59,7 @@ IHall* Cinema::getHallByIndex(size_t i)
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << halls.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(halls.size() - 1) + "]");
 }
 const Movie* Cinema::getMovieByIndex(size_t i) const
 {
@@ -72,8 +67,7 @@ const Movie* Cinema::getMovieByIndex(size_t i) const
 	{
 		return movies[i].get();
 	}
-	cout << "Index should be between 0 and " << movies.length() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(movies.length() - 1) + "]");
 }
 const Shift* Cinema::getShiftByIndex(size_t i) const
 {
@@ -83,8 +77,7 @@ const Shift* Cinema::getShiftByIndex(size_t i) const
 		std::advance(it, i);
 		return it->get();
 	}
-	cout << "Index should be between 0 and " << shifts.size() - 1 << ". Operation cancelled." << endl;
-	return nullptr;
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(shifts.size() - 1) + "]");
 }
 Guest* Cinema::findGuestById(int id) const
 {
@@ -92,8 +85,7 @@ Guest* Cinema::findGuestById(int id) const
 	{
 		if (guest->getId() == id) return guest.get();
 	}
-	cout << "Guest with given ID doesn't exist." << endl;
-	return nullptr;
+	throw invalid_argument("Guest with given ID doesn't exist.");
 }
 Employee* Cinema::findEmployeeById(int id) const
 {
@@ -101,8 +93,7 @@ Employee* Cinema::findEmployeeById(int id) const
 	{
 		if (employee->getId() == id) return employee.get();
 	}
-	cout << "Employee with given ID doesn't exist." << endl;
-	return nullptr;
+	throw invalid_argument("Employee with given ID doesn't exist.");
 }
 const Cinema& Cinema::operator+=(unique_ptr<Employee> e)
 {
@@ -139,8 +130,7 @@ const Cinema& Cinema::operator-=(int guestId)
 			return *this;
 		}
 	}
-	cout << "Guest with given ID doesn't exist. Operation cancelled." << endl;
-	return *this;
+	throw invalid_argument("Guest with given ID doesn't exist.");
 }
 void Cinema::printAllEmployees() const
 {

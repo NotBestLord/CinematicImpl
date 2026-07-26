@@ -4,16 +4,20 @@
 #include "Reviewer.h"
 #include "VIPTicket.h"
 #include "HallBuilder.h"
+#include <vector>
 
 static constexpr int MAX_INPUT_LEN = 256;
 
 using namespace std;
 
-static int readInt(string prompt) {
+static int readInt(string prompt)
+{
     int value;
-    while (true) {
+    while (true)
+    {
         cout << prompt;
-        if (cin >> value) {
+        if (cin >> value)
+        {
             cin.ignore(INT_MAX, '\n');
             return value;
         }
@@ -23,8 +27,10 @@ static int readInt(string prompt) {
     }
 }
 
-static int readIntInRange(string prompt, int minVal, int maxVal) {
-    while (true) {
+static int readIntInRange(string prompt, int minVal, int maxVal)
+{
+    while (true)
+    {
         int v = readInt(prompt);
         if (v >= minVal && v <= maxVal) return v;
         cout << "Value must be between " << minVal
@@ -32,11 +38,14 @@ static int readIntInRange(string prompt, int minVal, int maxVal) {
     }
 }
 
-static double readPositiveDouble(string prompt) {
+static double readPositiveDouble(string prompt)
+{
     double value;
-    while (true) {
+    while (true)
+    {
         cout << prompt;
-        if (cin >> value && value >= 0) {
+        if (cin >> value && value >= 0)
+        {
             cin.ignore(INT_MAX, '\n');
             return value;
         }
@@ -46,19 +55,22 @@ static double readPositiveDouble(string prompt) {
     }
 }
 
-static void readLine(string prompt, string& buffer, int bufferSize) {
+static void readLine(string prompt, string& buffer, int bufferSize)
+{
 	cout << prompt;
 	vector<char> bufferArr(bufferSize);
 	cin.getline(bufferArr.data(), bufferSize);
 	buffer = string(bufferArr.data());
-	if (cin.fail()) {
+	if (cin.fail())
+    {
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
 		buffer.clear();
 	}
 }
 
-static Date readDate(string label) {
+static Date readDate(string label)
+{
     cout << "Enter " << label << ":" << endl;
     int d = readIntInRange("  Day (1-31): ", 1, 31);
     int m = readIntInRange("  Month (1-12): ", 1, 12);
@@ -66,9 +78,11 @@ static Date readDate(string label) {
     return Date(d, m, y);
 }
 
-static bool readYesNo(string prompt) {
+static bool readYesNo(string prompt)
+{
     string buffer;
-    while (true) {
+    while (true)
+    {
         readLine(prompt, buffer, 8);
         if (buffer[0] == 'y' || buffer[0] == 'Y') return true;
         if (buffer[0] == 'n' || buffer[0] == 'N') return false;
@@ -76,10 +90,12 @@ static bool readYesNo(string prompt) {
     }
 }
 
-static void addHall(Cinema& cinema) {
+static void addHall(Cinema& cinema)
+{
     cout << "\n--- Add new hall ---" << endl;
 
-    if (cinema.getNumMovies() == 0) {
+    if (cinema.getNumMovies() == 0)
+    {
         cout << "No movies in the system yet. Add a movie first." << endl;
         return;
     }
@@ -98,7 +114,8 @@ static void addHall(Cinema& cinema) {
     int type = readIntInRange("Type: ", 1, 4);
 
     unique_ptr<HallBuilder> builder;
-    switch (type) {
+    switch (type)
+    {
         case 1: builder = make_unique<HallBuilder>(*movie);       break;
         case 2: builder = make_unique<VIPHallBuilder>(*movie);    break;
         case 3: builder = make_unique<Hall3DBuilder>(*movie);     break;
@@ -124,7 +141,8 @@ static void addHall(Cinema& cinema) {
     cout << "IHall added successfully." << endl;
 }
 
-static void addMovie(Cinema& cinema) {
+static void addMovie(Cinema& cinema)
+{
     cout << "\n--- Add new movie ---" << endl;
 
     string title;
@@ -139,7 +157,8 @@ static void addMovie(Cinema& cinema) {
     cout << "Movie added successfully." << endl;
 }
 
-static void addEmployee(Cinema& cinema) {
+static void addEmployee(Cinema& cinema)
+{
     cout << "\n--- Register new employee ---" << endl;
 
     string name;
@@ -153,7 +172,8 @@ static void addEmployee(Cinema& cinema) {
     cout << "Employee registered successfully." << endl;
 }
 
-static void addGuest(Cinema& cinema) {
+static void addGuest(Cinema& cinema)
+{
     cout << "\n--- Register new guest ---" << endl;
 
     cout << "Choose guest type:" << endl
@@ -167,10 +187,12 @@ static void addGuest(Cinema& cinema) {
     Date date = readDate("birth date");
 
     unique_ptr<Guest> guest;
-    if (type == 1) {
+    if (type == 1)
+    {
         int points = readIntInRange("Initial club points: ", 0, 100000);
         guest = make_unique<Customer>(name, id, date, points);
-    } else {
+    } else
+    {
         string pub;
         readLine("Publication name: ", pub, MAX_INPUT_LEN);
         guest = make_unique<Reviewer>(name, id, date, pub);
@@ -180,14 +202,17 @@ static void addGuest(Cinema& cinema) {
     cout << "Guest registered successfully." << endl;
 }
 
-static void sellTicket(Cinema& cinema) {
+static void sellTicket(Cinema& cinema)
+{
     cout << "\n--- Sell ticket ---" << endl;
 
-    if (cinema.getNumGuests() == 0) {
+    if (cinema.getNumGuests() == 0)
+    {
         cout << "No guests in the system. Register one first." << endl;
         return;
     }
-    if (cinema.getNumMovies() == 0) {
+    if (cinema.getNumMovies() == 0)
+    {
         cout << "No movies in the system. Add one first." << endl;
         return;
     }
@@ -208,22 +233,26 @@ static void sellTicket(Cinema& cinema) {
     int type = readIntInRange("Type: ", 1, 2);
 
     unique_ptr<Ticket> ticket;
-    if (type == 1) {
+    if (type == 1)
+    {
         ticket = make_unique<Ticket>(*movie, is3D);
-    } else {
+    } else
+    {
         bool meal = readYesNo("Include meal? (y/n): ");
         ticket = make_unique<VIPTicket>(*movie, is3D, meal);
     }
 
     double finalPrice = ticket->calcFinalPrice();
-    guest->addTicket(std::move(ticket));
+    guest->addTicket(*ticket);
     cout << "Ticket sold. Final price: " << finalPrice << endl;
 }
 
-static void printMovieDetails(const Cinema& cinema) {
+static void printMovieDetails(const Cinema& cinema)
+{
     cout << "\n--- Print movie details ---" << endl;
 
-    if (cinema.getNumMovies() == 0) {
+    if (cinema.getNumMovies() == 0)
+    {
         cout << "No movies available." << endl;
         return;
     }
@@ -235,10 +264,12 @@ static void printMovieDetails(const Cinema& cinema) {
     cout << *m << endl;
 }
 
-static void addEmployeeToShift(Cinema& cinema) {
+static void addEmployeeToShift(Cinema& cinema)
+{
     cout << "\n--- Add employee to shift ---" << endl;
 
-    if (cinema.getNumEmployees() == 0) {
+    if (cinema.getNumEmployees() == 0)
+    {
         cout << "No employees registered." << endl;
         return;
     }
@@ -255,10 +286,12 @@ static void addEmployeeToShift(Cinema& cinema) {
     cout << "Shift created successfully." << endl;
 }
 
-static void promoteEmployee(Cinema& cinema) {
+static void promoteEmployee(Cinema& cinema)
+{
     cout << "\n--- Promote employee ---" << endl;
 
-    if (cinema.getNumEmployees() == 0) {
+    if (cinema.getNumEmployees() == 0)
+    {
         cout << "No employees to promote." << endl;
         return;
     }
@@ -273,11 +306,13 @@ static void promoteEmployee(Cinema& cinema) {
               << " -> " << emp->getSalary() << endl;
 }
 
-static void compareTickets(const Cinema& cinema) {
+static void compareTickets(const Cinema& cinema)
+{
     cout << "\n--- Compare ticket prices ---" << endl;
 
     int n = cinema.getNumGuests();
-    if (n == 0) {
+    if (n == 0)
+    {
         cout << "No guests in the system." << endl;
         return;
     }
@@ -285,7 +320,8 @@ static void compareTickets(const Cinema& cinema) {
     cinema.printAllGuests();
     int g1Idx = readIntInRange("First guest index: ", 0, n - 1);
     const Guest* g1 = cinema.getGuestByIndex(g1Idx);
-    if (g1->getNumTickets() == 0) {
+    if (g1->getNumTickets() == 0)
+    {
         cout << "This guest has no tickets." << endl;
         return;
     }
@@ -298,7 +334,8 @@ static void compareTickets(const Cinema& cinema) {
 
     int g2Idx = readIntInRange("Second guest index: ", 0, n - 1);
     const Guest* g2 = cinema.getGuestByIndex(g2Idx);
-    if (g2->getNumTickets() == 0) {
+    if (g2->getNumTickets() == 0)
+    {
         cout << "This guest has no tickets." << endl;
         return;
     }
@@ -309,21 +346,25 @@ static void compareTickets(const Cinema& cinema) {
     int t2Idx = readIntInRange("Second ticket index: ", 0, g2->getNumTickets() - 1);
     const Ticket* t2 = g2->getTicket(t2Idx);
 
-    if (*t1 > *t2) {
+    if (*t1 > *t2)
+    {
         cout << "First ticket is more expensive ("
                   << t1->calcFinalPrice() << " vs "
                   << t2->calcFinalPrice() << ")" << endl;
-    } else {
+    } else
+    {
         cout << "Second ticket is more expensive or equal ("
                   << t2->calcFinalPrice() << " vs "
                   << t1->calcFinalPrice() << ")" << endl;
     }
 }
 
-static void checkHallEmpty(const Cinema& cinema) {
+static void checkHallEmpty(const Cinema& cinema)
+{
     cout << "\n--- Check hall availability ---" << endl;
 
-    if (cinema.getNumHalls() == 0) {
+    if (cinema.getNumHalls() == 0)
+    {
         cout << "No halls in the system." << endl;
         return;
     }
@@ -332,22 +373,27 @@ static void checkHallEmpty(const Cinema& cinema) {
     int idx = readIntInRange("Choose hall index: ", 0, cinema.getNumHalls() - 1);
 
     const IHall* hall = cinema.getHallByIndex(idx);
-    if (!(*hall)) {
+    if (!(*hall))
+    {
         cout << "The hall is completely empty (all seats available)." << endl;
-    } else {
+    } else
+    {
         cout << "The hall has some seats taken." << endl;
     }
 }
 
-static void printAllGuestsOperation(const Cinema& cinema) {
+static void printAllGuestsOperation(const Cinema& cinema)
+{
     cout << "\n--- All guests (polymorphic print) ---" << endl;
     cinema.printAllGuests();
 }
 
-static void removeGuest(Cinema& cinema) {
+static void removeGuest(Cinema& cinema)
+{
     cout << "\n--- Remove guest ---" << endl;
 
-    if (cinema.getNumGuests() == 0) {
+    if (cinema.getNumGuests() == 0)
+    {
         cout << "No guests to remove." << endl;
         return;
     }
@@ -359,7 +405,8 @@ static void removeGuest(Cinema& cinema) {
     cout << "Guest removed successfully." << endl;
 }
 
-static void printMenu() {
+static void printMenu()
+{
     cout << "\n========== Cinema Management System ==========" << endl
               << "  0.  Exit" << endl
               << "  1.  Add new hall" << endl
@@ -377,18 +424,22 @@ static void printMenu() {
               << "==============================================" << endl;
 }
 
-int main() {
+int main()
+{
     Cinema& cinema = Cinema::getInstance();
     int choice;
 
     cout << "Welcome to the Cinema Management System!" << endl;
 
-    do {
+    do
+    {
         printMenu();
         choice = readInt("Choose an option: ");
 
-        try {
-            switch (choice) {
+        try
+        {
+            switch (choice)
+            {
                 case 0:  cout << "Goodbye!" << endl; break;
                 case 1:  addHall(cinema);                break;
                 case 2:  addMovie(cinema);               break;
@@ -405,9 +456,11 @@ int main() {
                 default:
                     cout << "Invalid choice. Please pick 0-12." << endl;
             }
-        } catch (const exception& e) {
+        } catch (const exception& e)
+        {
             cerr << "Error: " << e.what() << endl;
-        } catch (...) {
+        } catch (...)
+        {
             cerr << "An unknown error occurred." << endl;
         }
     } while (choice != 0);
