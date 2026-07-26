@@ -43,31 +43,7 @@ const Cinema& Cinema::operator=(const Cinema& other)
 {
 	if (this != &other)
 	{
-		for (int i = 0; i < numEmployees; i++)
-		{
-			delete employees[i];
-		}
-		delete[] employees;
-		for (int i = 0; i < numGuests; i++)
-		{
-			delete guests[i];
-		}
-		delete[] guests;
-		for (int i = 0; i < numHalls; i++)
-		{
-			delete halls[i];
-		}
-		delete[] halls;
-			for (int i = 0; i < numMovies; i++)
-		{
-			delete movies[i];
-		}
-		delete[] movies;
-		for (int i = 0; i < numShifts; i++)
-		{
-			delete shifts[i];
-		}
-		delete[] shifts;
+		deleteAll();
 
 		numEmployees = other.numEmployees;
 		numGuests = other.numGuests;
@@ -137,87 +113,84 @@ const Cinema& Cinema::operator=(Cinema&& other)
 
 Cinema::~Cinema()
 {
-	for (int i = 0; i < numEmployees; i++)
-	{
-		delete employees[i];
-	}
-	delete[] employees;
-	for (int i = 0; i < numGuests; i++)
-	{
-		delete guests[i];
-	}
-	delete[] guests;
-	for (int i = 0; i < numHalls; i++)
-	{
-		delete halls[i];
-	}
-	delete[] halls;
-	for (int i = 0; i < numMovies; i++)
-	{
-		delete movies[i];
-	}
-	delete[] movies;
-	for (int i = 0; i < numShifts; i++)
-	{
-		delete shifts[i];
-	}
-	delete[] shifts;
+	deleteAll();
+}
+
+void Cinema::deleteAll()
+{
+		for (int i = 0; i < numEmployees; i++)
+		{
+			delete employees[i];
+		}
+		delete[] employees;
+		for (int i = 0; i < numGuests; i++)
+		{
+			delete guests[i];
+		}
+		delete[] guests;
+		for (int i = 0; i < numHalls; i++)
+		{
+			delete halls[i];
+		}
+		delete[] halls;
+			for (int i = 0; i < numMovies; i++)
+		{
+			delete movies[i];
+		}
+		delete[] movies;
+		for (int i = 0; i < numShifts; i++)
+		{
+			delete shifts[i];
+		}
+		delete[] shifts;
 }
 
 const Employee* Cinema::getEmployeeByIndex(int i) const
 {
-	if (i >= 0 && i <= employeesCapacity) return employees[i];
-	cout << "Index should be between 0 and " << employeesCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numEmployees) return employees[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numEmployees - 1) + "]");
 }
 
 Employee* Cinema::getEmployeeByIndex(int i)
 {
-	if (i >= 0 && i <= employeesCapacity) return employees[i];
-	cout << "Index should be between 0 and " << employeesCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numEmployees) return employees[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numEmployees - 1) + "]");
 }
 
 const Guest* Cinema::getGuestByIndex(int i) const
 {
-	if (i >= 0 && i <= guestsCapacity) return guests[i];
-	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numGuests) return guests[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numGuests - 1) + "]");
 }
 
 Guest* Cinema::getGuestByIndex(int i)
 {
-	if (i >= 0 && i <= guestsCapacity) return guests[i];
-	cout << "Index should be between 0 and " << guestsCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numGuests) return guests[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numGuests - 1) + "]");
 }
 
 const Hall* Cinema::getHallByIndex(int i) const
 {
-	if (i >= 0 && i <= hallsCapacity) return halls[i];
-	cout << "Index should be between 0 and " << hallsCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numHalls) return halls[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numHalls - 1) + "]");
 }
 
 Hall* Cinema::getHallByIndex(int i)
 {
-	if (i >= 0 && i <= hallsCapacity) return halls[i];
-	cout << "Index should be between 0 and " << hallsCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numHalls) return halls[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numHalls - 1) + "]");
 }
 
 const Movie* Cinema::getMovieByIndex(int i) const
 {
-	if (i >= 0 && i <= moviesCapacity) return movies[i];
-	cout << "Index should be between 0 and " << moviesCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numMovies) return movies[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numMovies - 1) + "]");
 }
 
 const Shift* Cinema::getShiftByIndex(int i) const
 {
-	if (i >= 0 && i <= shiftsCapacity) return shifts[i];
-	cout << "Index should be between 0 and " << shiftsCapacity << ". Operation cancelled." << endl;
-	return nullptr;
+	if (i >= 0 && i < numShifts) return shifts[i];
+	throw out_of_range("Index " + to_string(i) + " out of range [0, " + to_string(numShifts - 1) + "]");
 }
 
 Guest* Cinema::findGuestById(int id) const
@@ -226,8 +199,7 @@ Guest* Cinema::findGuestById(int id) const
 	{
 		if (guests[i]->getId() == id) return guests[i];
 	}
-	cout << "Guest with given ID doesn't exist." << endl;;
-	return nullptr;
+	throw invalid_argument("Guest with given ID doesn't exist.");
 }
 
 Employee* Cinema::findEmployeeById(int id) const
@@ -236,8 +208,7 @@ Employee* Cinema::findEmployeeById(int id) const
 	{
 		if (employees[i]->getId() == id) return employees[i];
 	}
-	cout << "Employee with given ID doesn't exist." << endl;;
-	return nullptr;
+	throw invalid_argument("Employee with given ID doesn't exist.");
 }
 
 const Cinema& Cinema::operator+=(Employee* e)
@@ -295,7 +266,7 @@ const Cinema& Cinema::operator-=(int guestId)
 			guests[i] = nullptr;
 		}
 	}
-	if (!found) cout << "Guest with given ID doesn't exist. Operation cancelled." << endl;
+	if (!found) throw invalid_argument("Employee with given ID doesn't exist.");
 	return *this;
 }
 

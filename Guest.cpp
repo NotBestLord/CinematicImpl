@@ -25,10 +25,10 @@ const Ticket* Guest::getTicket(int index) const
 	return tickets[index];
 }
 
-void Guest::addTicket(Ticket* t)
+void Guest::addTicket(Ticket& t)
 {
 	if (numTickets == ticketsCapacity) resizeTickets();
-	tickets[numTickets++] = t;
+	tickets[numTickets++] = new Ticket(t);
 }
 
 

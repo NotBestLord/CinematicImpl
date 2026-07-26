@@ -28,7 +28,7 @@ public:
     void setVisitCount(int v) { visitCount = v; }
     void incrementVisitCount() { visitCount++; }
 
-    void addTicket(Ticket* t);
+    void addTicket(Ticket& t);
 
 	void toOs(std::ostream& os) const override;
 };

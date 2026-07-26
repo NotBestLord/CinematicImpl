@@ -237,11 +237,14 @@ static void sellTicket(Cinema& cinema) {
         ticket = new VIPTicket(*movie, is3D, meal);
     }
 
-    try {
-        guest->addTicket(ticket);
+    try
+    {
+        guest->addTicket(*ticket);
         cout << "Ticket sold. Final price: "
                   << ticket->calcFinalPrice() << endl;
-    } catch (...) {
+        delete ticket;
+    } catch (...)
+    {
         delete ticket;
         throw;
     }
@@ -257,7 +260,6 @@ static void printMovieDetails(const Cinema& cinema) {
 
     cinema.printAllMovies();
     int idx = readIntInRange("Choose movie index: ", 0, cinema.getNumMovies() - 1);
-
     const Movie* m = cinema.getMovieByIndex(idx);
     cout << *m << endl;
 }
@@ -387,8 +389,15 @@ static void removeGuest(Cinema& cinema) {
     cinema.printAllGuests();
     int id = readInt("Enter ID of guest to remove: ");
 
-    cinema -= id;
-    cout << "Guest removed successfully." << endl;
+    try
+    {
+        cinema -= id;
+        cout << "Guest removed successfully." << endl;
+    }
+    catch(const exception& e)
+    {
+        cerr << e.what() << '\n';
+    }
 }
 
 static void printMenu() {

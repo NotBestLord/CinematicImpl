@@ -38,6 +38,8 @@ private:
     void resizeMovies();
     void resizeShifts();
 
+    void deleteAll();
+
 public:
     Cinema();
     Cinema(const Cinema& other);
